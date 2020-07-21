@@ -27,7 +27,7 @@ public class IngresarAdministrador extends javax.swing.JFrame {
     
    public IngresarAdministrador() {
         initComponents();
-        setSize(490,230);
+        setSize(400, 245);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);

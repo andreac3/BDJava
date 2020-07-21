@@ -6,8 +6,6 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
-import static barberiabd.vista.IngresarAdministrador.contraseña;
-import static barberiabd.vista.IngresarAdministrador.idLogin;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
