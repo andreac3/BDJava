@@ -19,7 +19,7 @@ public class Administrador extends javax.swing.JFrame {
     String id_ingresado;
     public Administrador() {
         initComponents();
-        setSize(405, 430);
+        setSize(420, 420);
         setResizable(false);
         setTitle("Administrador - Sesion de " + id_ingresado);
         setLocationRelativeTo(null);
