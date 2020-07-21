@@ -5,19 +5,40 @@
  */
 package barberiabd.vista;
 
+import barberiabd.modelo.Barber;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Andrea Calderon
  */
 public class Barbero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Barbero
-     */
+    String id_ingresado;
+    
     public Barbero() {
         initComponents();
+        setSize(420, 420);
+        setResizable(false);
+        setTitle("Administrador - Sesion de " + id_ingresado);
+        setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.decode("#dbdccd"));
+        id_ingresado = IngresarBarbero.idLogin;
+        nombre_lbl.setText(Barber.findBarber(id_ingresado));
+        id_lbl.setText(Integer.toString(Barber.findID(id_ingresado)));
+        maquina_lbl.setText(Integer.toString(Barber.findMaquina(id_ingresado)));
+        porcentaje_lbl.setText(Integer.toString(Barber.findPorcentaje(id_ingresado)));
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        return retValue;
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,18 +49,68 @@ public class Barbero extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        nombre_lbl = new javax.swing.JLabel();
+        id_lbl = new javax.swing.JLabel();
+        maquina_lbl = new javax.swing.JLabel();
+        porcentaje_lbl = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 248, -1, -1));
+        jButton1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jButton1.setText("Salir");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel1.setText("Nombre:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 20));
+
+        jLabel2.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel2.setText("Identificación:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, 20));
+
+        jLabel3.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel3.setText("Maquina asignada:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, 20));
+
+        jLabel4.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel4.setText("Porcentaje de comisión:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 20));
+
+        nombre_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(nombre_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 130, 20));
+
+        id_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(id_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 130, 20));
+
+        maquina_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(maquina_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 130, 20));
+
+        porcentaje_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(porcentaje_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 130, 20));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 80, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel id_lbl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel maquina_lbl;
+    private javax.swing.JLabel nombre_lbl;
+    private javax.swing.JLabel porcentaje_lbl;
     // End of variables declaration//GEN-END:variables
 }

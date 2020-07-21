@@ -20,11 +20,11 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        setSize(480,250);
+        setSize(480,260);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.decode("#607D8B"));
+        this.getContentPane().setBackground(Color.decode("#dbdccd"));
 
     }
     @Override
@@ -54,51 +54,44 @@ public class Principal extends javax.swing.JFrame {
         setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoP.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 50, 50));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee", 3, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bienvenido a Uncle B's");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 290, 40));
 
-        Ingresar_btn.setBackground(new java.awt.Color(69, 90, 100));
         Ingresar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        Ingresar_btn.setForeground(new java.awt.Color(255, 255, 255));
         Ingresar_btn.setText("Ingresar administrador");
-        Ingresar_btn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Ingresar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ingresar_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(Ingresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 150, 30));
+        getContentPane().add(Ingresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 190, 30));
 
-        Salir_btn.setBackground(new java.awt.Color(69, 90, 100));
         Salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        Salir_btn.setForeground(new java.awt.Color(255, 255, 255));
         Salir_btn.setText("Salir");
-        Salir_btn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Salir_btn.setBorderPainted(false);
         Salir_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Salir_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(Salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 60, 30));
+        getContentPane().add(Salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 80, 30));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Recuerde que para registrar ventas debe ingresar como administrador");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        ingresarBarbero_btn.setBackground(new java.awt.Color(69, 90, 100));
         ingresarBarbero_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        ingresarBarbero_btn.setForeground(new java.awt.Color(255, 255, 255));
         ingresarBarbero_btn.setText("Ingresar barbero");
-        ingresarBarbero_btn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(ingresarBarbero_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 130, 30));
+        ingresarBarbero_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresarBarbero_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ingresarBarbero_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 160, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -112,6 +105,12 @@ public class Principal extends javax.swing.JFrame {
     private void Salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btnActionPerformed
         System.exit(0);
     }//GEN-LAST:event_Salir_btnActionPerformed
+
+    private void ingresarBarbero_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarBarbero_btnActionPerformed
+       dispose();
+       IngresarBarbero entrarB = new IngresarBarbero();
+       entrarB.setVisible(true);
+    }//GEN-LAST:event_ingresarBarbero_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -117,7 +117,7 @@ public class CrearMiembro extends javax.swing.JFrame {
         getContentPane().add(crear_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
 
         salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        salir_btn.setText("Salir");
+        salir_btn.setText("Regresar");
         salir_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salir_btnActionPerformed(evt);
