@@ -46,6 +46,7 @@ public class Principal extends javax.swing.JFrame {
         Ingresar_btn = new javax.swing.JButton();
         Salir_btn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        ingresarBarbero_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(44, 44, 44));
@@ -59,70 +60,56 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("Bienvenido a Uncle B's");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 290, 40));
 
-        Ingresar_btn.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
-        Ingresar_btn.setText("Ingresar");
-        Ingresar_btn.setBorderPainted(false);
+        Ingresar_btn.setBackground(new java.awt.Color(255, 255, 255));
+        Ingresar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        Ingresar_btn.setText("Ingresar administrador");
+        Ingresar_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Ingresar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ingresar_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(Ingresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
+        getContentPane().add(Ingresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 30));
 
-        Salir_btn.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
+        Salir_btn.setBackground(new java.awt.Color(255, 255, 255));
+        Salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         Salir_btn.setText("Salir");
+        Salir_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Salir_btn.setBorderPainted(false);
-        getContentPane().add(Salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        Salir_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Salir_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, 30));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
         jLabel3.setText("Recuerde que para registrar ventas debe ingresar como administrador");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
+        ingresarBarbero_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        ingresarBarbero_btn.setText("Ingresar barbero");
+        ingresarBarbero_btn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(ingresarBarbero_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 150, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Ingresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ingresar_btnActionPerformed
-        // TODO add your handling code here:
+       dispose();
+       IngresarAdministrador entrar = new IngresarAdministrador();
+       entrar.setVisible(true);
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void Salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_Salir_btnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ingresar_btn;
     private javax.swing.JButton Salir_btn;
+    private javax.swing.JButton ingresarBarbero_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

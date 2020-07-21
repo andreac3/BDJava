@@ -20,14 +20,14 @@ import javax.swing.WindowConstants;
  *
  * @author Andrea Calderon
  */
-public class Ingresar extends javax.swing.JFrame {
+public class IngresarAdministrador extends javax.swing.JFrame {
 
     public static String idLogin = "";
     public static String contraseña;
     
-   public Ingresar() {
+   public IngresarAdministrador() {
         initComponents();
-        setSize(480,250);
+        setSize(490,230);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);
@@ -38,7 +38,7 @@ public class Ingresar extends javax.swing.JFrame {
 
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("resource/banca.png"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("resource/Logo.png"));
         return retValue;
     }
 
@@ -57,11 +57,12 @@ public class Ingresar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         id_tf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        pass_tf = new javax.swing.JTextField();
+        pass_tf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Ingresar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         Ingresar_btn.setText("Ingresar");
         Ingresar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +71,7 @@ public class Ingresar extends javax.swing.JFrame {
         });
         getContentPane().add(Ingresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
+        Salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         Salir_btn.setText("Salir");
         Salir_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,12 +80,15 @@ public class Ingresar extends javax.swing.JFrame {
         });
         getContentPane().add(Salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         jLabel2.setText("Ingrese su identificacion:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         jLabel3.setText("Ingrese su contraseña:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
+        id_tf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         id_tf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 id_tfActionPerformed(evt);
@@ -93,7 +98,9 @@ public class Ingresar extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, 70));
-        getContentPane().add(pass_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 130, -1));
+
+        pass_tf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(pass_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 130, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -112,31 +119,20 @@ public class Ingresar extends javax.swing.JFrame {
       idLogin = id_tf.getText().trim();
       contraseña = pass_tf.getText().trim();
 
-        if (!idLogin.equals("") || !contraseña.equals("")) {
+        if (!idLogin.equals("") || !contraseña.equals("") ) {
             try {
                 Connection cn = Conexion.conectar();
-                PreparedStatement pst = cn.prepareStatement("select  from clientes where Id = '" + idLogin
-                        + "' and Contraseña = '" + contraseña + "'");
+                PreparedStatement pst = cn.prepareStatement("select id, password from administrador where id = '" + idLogin
+                        + "' and password = '" + contraseña + "'");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    String tipoNivel = rs.getString("tipoNivel");
-                    String TipoCuenta = rs.getString("TipoCuenta");
-                    String TipoPersona = rs.getString("TipoPersona");
-
-                    if (tipoNivel.equalsIgnoreCase("Administrador")) {
-                        dispose();
-                        new Administrador().setVisible(true);
-                    } else if(tipoNivel.equalsIgnoreCase("Cliente") && TipoPersona.equalsIgnoreCase("Natural")) {
-                        dispose();
-                        new Cliente().setVisible(true);
-                    }else if(tipoNivel.equalsIgnoreCase("Cliente") && TipoPersona.equalsIgnoreCase("Juridica")){
-                        dispose();
-                        new Compañia().setVisible(true);
-                    }
+                    dispose();
+                    Administrador admi = new Administrador();
+                    admi.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Datos de acceso incorrectos");
-                    txt_identificacion.setText("");
-                    txt_contraseña.setText("");
+                    id_tf.setText("");
+                    pass_tf.setText("");
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al iniciar sesión1, contacte al administrador. " + e);
@@ -146,40 +142,6 @@ public class Ingresar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ingresar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ingresar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ingresar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ingresar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ingresar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ingresar_btn;
@@ -188,6 +150,6 @@ public class Ingresar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField pass_tf;
+    private javax.swing.JPasswordField pass_tf;
     // End of variables declaration//GEN-END:variables
 }

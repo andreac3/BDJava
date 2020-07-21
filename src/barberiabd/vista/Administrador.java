@@ -5,17 +5,33 @@
  */
 package barberiabd.vista;
 
+import barberiabd.modelo.Administrator;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Andrea Calderon
  */
 public class Administrador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Administrador
-     */
+    String id_ingresado;
     public Administrador() {
         initComponents();
+        setSize(405, 430);
+        setResizable(false);
+        setTitle("Administrador - Sesion de " + id_ingresado);
+        setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.decode("#dbdccd"));
+        id_ingresado = IngresarAdministrador.idLogin;
+        nombre_lbl.setText(Administrator.findAdmin(id_ingresado));
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        return retValue;
     }
 
     /**
@@ -27,108 +43,111 @@ public class Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        crearMiembro_btn = new javax.swing.JButton();
+        crearVenta_btn = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        AgregarCorte_btn = new javax.swing.JButton();
+        AgregarProd_btn = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        AgregarCliente_btn = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        nombre_lbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Crear miembro");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 120, -1));
+        crearMiembro_btn.setText("Agregar miembro");
+        crearMiembro_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearMiembro_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crearMiembro_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, -1));
 
-        jButton2.setText("Crear venta");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 120, 20));
+        crearVenta_btn.setText("Agregar venta");
+        getContentPane().add(crearVenta_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 120, 20));
 
         jButton3.setText("Salir");
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
 
         jButton4.setText("Barberos");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 120, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 120, -1));
 
         jButton5.setText("Ventas");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 120, 20));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 120, 20));
 
-        jButton6.setText("Agregar corte");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 120, -1));
+        AgregarCorte_btn.setText("Agregar corte");
+        getContentPane().add(AgregarCorte_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 120, -1));
 
-        jButton7.setText("Agregar producto");
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 120, -1));
+        AgregarProd_btn.setText("Agregar producto");
+        getContentPane().add(AgregarProd_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 120, -1));
 
         jButton8.setText("Productos");
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 120, -1));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 120, -1));
 
         jButton9.setText("Clientes");
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 120, -1));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 120, -1));
 
-        jButton10.setText("Agregar cliente");
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 120, -1));
+        AgregarCliente_btn.setText("Agregar cliente");
+        AgregarCliente_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarCliente_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AgregarCliente_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, -1));
 
         jButton11.setText("Cortes");
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 120, -1));
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 120, -1));
 
         jButton12.setText("Administradores");
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 120, -1));
+        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 120, -1));
+
+        jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel1.setText("Bienvenido");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 80, 70));
+
+        nombre_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        getContentPane().add(nombre_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 150, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void crearMiembro_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearMiembro_btnActionPerformed
+      dispose();
+      CrearMiembro miembro = new CrearMiembro();
+      miembro.setVisible(true);
+    }//GEN-LAST:event_crearMiembro_btnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Administrador().setVisible(true);
-            }
-        });
-    }
+    private void AgregarCliente_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCliente_btnActionPerformed
+     dispose();
+     CrearCliente cliente = new CrearCliente();
+     cliente.setVisible(true);
+    }//GEN-LAST:event_AgregarCliente_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton AgregarCliente_btn;
+    private javax.swing.JButton AgregarCorte_btn;
+    private javax.swing.JButton AgregarProd_btn;
+    private javax.swing.JButton crearMiembro_btn;
+    private javax.swing.JButton crearVenta_btn;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel nombre_lbl;
     // End of variables declaration//GEN-END:variables
 }
