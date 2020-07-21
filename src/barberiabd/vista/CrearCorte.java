@@ -18,18 +18,18 @@ import javax.swing.WindowConstants;
  *
  * @author Andrea Calderon
  */
-public class CrearVenta extends javax.swing.JFrame {
+public class CrearCorte extends javax.swing.JFrame {
 
-    static int idVenta;
-    static int idCliente;
     static int idCorte;
-    static int idBarbero;
-    static int costo;
+    static String nombreCorte;
+    static int precioCorte;
+    static int producto1;
+    static int producto2;
     static int propina;
     static int costoTotal;
     static boolean ocurreError;
 
-    public CrearVenta() {
+    public CrearCorte() {
         initComponents();
         setResizable(false);
         setSize(425, 440);
@@ -52,53 +52,45 @@ public class CrearVenta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         crear_btn = new javax.swing.JButton();
         salir_btn = new javax.swing.JButton();
-        idVenta_TF = new javax.swing.JTextField();
-        costo_TF = new javax.swing.JTextField();
-        propina_TF = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        idCliente_TF = new javax.swing.JTextField();
+        precioCorte_TF = new javax.swing.JTextField();
+        producto2_TF = new javax.swing.JTextField();
+        nombreCorte_TF = new javax.swing.JTextField();
         idCorte_TF = new javax.swing.JTextField();
-        idBarbero_TF = new javax.swing.JTextField();
+        producto1_TF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(450, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 80, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 80, 70));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel1.setText("Ingrese id de la venta:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        jLabel1.setText("Ingrese el id del corte:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel3.setText("Ingrese el id del barbero:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        jLabel3.setText("Ingrese el id del producto usado 1:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel4.setText("Ingrese el id del cliente:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel5.setText("Ingrese la propina (si aplica):");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        jLabel4.setText("Ingrese el nombre del corte:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel6.setText("Ingrese el id del corte:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        jLabel6.setText("Ingrese el precio del corte:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel9.setText("Ingrese el costo :");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        jLabel9.setText("Ingrese el id del producto usado 2 :");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         crear_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        crear_btn.setText("Crear Venta");
+        crear_btn.setText("Crear Corte");
         crear_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 crear_btnActionPerformed(evt);
@@ -116,33 +108,23 @@ public class CrearVenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 80, -1));
-        getContentPane().add(idVenta_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 110, -1));
+        getContentPane().add(precioCorte_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 110, -1));
 
-        costo_TF.addActionListener(new java.awt.event.ActionListener() {
+        producto2_TF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                costo_TFActionPerformed(evt);
+                producto2_TFActionPerformed(evt);
             }
         });
-        getContentPane().add(costo_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 110, -1));
-        getContentPane().add(propina_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 110, -1));
+        getContentPane().add(producto2_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 110, -1));
+        getContentPane().add(nombreCorte_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 110, -1));
 
-        jButton1.setText("Crear Cliente");
-        jButton1.setMaximumSize(new java.awt.Dimension(150, 27));
-        jButton1.setMinimumSize(new java.awt.Dimension(150, 27));
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 120, 30));
-
-        jButton2.setText("Crear Barbero");
-        jButton2.setMaximumSize(new java.awt.Dimension(150, 27));
-        jButton2.setMinimumSize(new java.awt.Dimension(150, 27));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        idCorte_TF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                idCorte_TFActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, 30));
-        getContentPane().add(idCliente_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 110, -1));
-        getContentPane().add(idCorte_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 110, -1));
-        getContentPane().add(idBarbero_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 110, -1));
+        getContentPane().add(idCorte_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 110, -1));
+        getContentPane().add(producto1_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 110, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -155,51 +137,39 @@ public class CrearVenta extends javax.swing.JFrame {
 
     private void crear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_btnActionPerformed
         ocurreError = false;
-        if (estaVacio(idVenta_TF) || noEsNumero(idVenta_TF.getText()) ){
-            mensajeError("Ingrese el id de la venta, recuerde que debe ser un número");
-            ocurreError = true;
-        }
-        else{
-            idVenta = Integer.parseInt(idVenta_TF.getText());
-        }
-        if (estaVacio(idCliente_TF) || noEsNumero(idCliente_TF.getText())){
-            mensajeError("Ingrese el id del cliente, recuerde que debe ser un número");
-            ocurreError = true;
-        }
-        else {
-            idCliente = Integer.parseInt(idCliente_TF.getText());
-        }
         if (estaVacio(idCorte_TF) || noEsNumero(idCorte_TF.getText())) {
             mensajeError("Ingrese el id del corte, recuerde que debe ser un número");
             ocurreError = true;
-        }
-        else {
+        } else {
             idCorte = Integer.parseInt(idCorte_TF.getText());
         }
-        if (estaVacio(idBarbero_TF) || noEsNumero(idBarbero_TF.getText())) {
-            mensajeError("Ingrese el id del barbero, recuerde que debe ser un número");
+        if (estaVacio(nombreCorte_TF)) {
+            mensajeError("Ingrese el nombre del corte");
             ocurreError = true;
+        } else {
+            nombreCorte = nombreCorte_TF.getText();
         }
-        else {
-            idBarbero = Integer.parseInt(idBarbero_TF.getText());
-        }
-        if (estaVacio(costo_TF) || noEsNumero(costo_TF.getText())) {
-            mensajeError("Ingrese el costo, recuerde que debe ser un número");
-            ocurreError = true;
-        } 
-        else {
-            costo = Integer.parseInt(costo_TF.getText());
-        }
-        if (estaVacio(propina_TF) ) {
-            costoTotal = costo;
-        } 
-        else if (noEsNumero(propina_TF.getText())){
-            mensajeError("recuerde que la propina debe ser un número");
+        if (estaVacio(precioCorte_TF) || noEsNumero(precioCorte_TF.getText()) ){
+            mensajeError("Ingrese el precio del corte, recuerde que debe ser un número");
             ocurreError = true;
         }
         else{
-            propina = Integer.parseInt(propina_TF.getText());
-            costoTotal = propina + costo;
+            precioCorte = Integer.parseInt(precioCorte_TF.getText());
+        }
+
+        if (estaVacio(producto1_TF) || noEsNumero(producto1_TF.getText())) {
+            mensajeError("Ingrese el id del producto usado #1, recuerde que debe ser un número");
+            ocurreError = true;
+        }
+        else {
+            producto1 = Integer.parseInt(producto1_TF.getText());
+        }
+        if (estaVacio(producto2_TF) || noEsNumero(producto2_TF.getText())) {
+            mensajeError("Ingrese el ide del producto usado #2, recuerde que debe ser un número");
+            ocurreError = true;
+        } 
+        else {
+            producto2 = Integer.parseInt(producto2_TF.getText());
         }
         
         if (ocurreError){
@@ -211,32 +181,28 @@ public class CrearVenta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_crear_btnActionPerformed
 
-    private void costo_TFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costo_TFActionPerformed
+    private void producto2_TFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_producto2_TFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_costo_TFActionPerformed
+    }//GEN-LAST:event_producto2_TFActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void idCorte_TFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idCorte_TFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_idCorte_TFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField costo_TF;
     private javax.swing.JButton crear_btn;
-    private javax.swing.JTextField idBarbero_TF;
-    private javax.swing.JTextField idCliente_TF;
     private javax.swing.JTextField idCorte_TF;
-    private javax.swing.JTextField idVenta_TF;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField propina_TF;
+    private javax.swing.JTextField nombreCorte_TF;
+    private javax.swing.JTextField precioCorte_TF;
+    private javax.swing.JTextField producto1_TF;
+    private javax.swing.JTextField producto2_TF;
     private javax.swing.JButton salir_btn;
     // End of variables declaration//GEN-END:variables
 
