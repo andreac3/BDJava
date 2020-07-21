@@ -71,6 +71,11 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().add(crearMiembro_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, -1));
 
         crearVenta_btn.setText("Agregar venta");
+        crearVenta_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearVenta_btnActionPerformed(evt);
+            }
+        });
         getContentPane().add(crearVenta_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 120, 20));
 
         jButton3.setText("Salir");
@@ -132,6 +137,12 @@ public class Administrador extends javax.swing.JFrame {
      CrearCliente cliente = new CrearCliente();
      cliente.setVisible(true);
     }//GEN-LAST:event_AgregarCliente_btnActionPerformed
+
+    private void crearVenta_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearVenta_btnActionPerformed
+        dispose();
+        CrearVenta venta = new CrearVenta();
+        venta.setVisible(true);
+    }//GEN-LAST:event_crearVenta_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliente_btn;
