@@ -174,8 +174,6 @@ public class CrearMiembro extends javax.swing.JFrame {
         telefono = Integer.parseInt(tel_tf.getText().trim());
         contraseña = pass_tf.getText().trim();
         tipo_cbm = tipoNivel_cmb.getSelectedIndex() + 1;
-        maquinaAsignada = Integer.parseInt(maquinaAsig_tf.getText().trim());
-        porcentajeComision = Integer.parseInt(porcentajeCom_tf.getText().trim());
         
         if (nombre.equals("")) {
             nombre_tf.setBackground(Color.red);
