@@ -16,20 +16,20 @@ import java.awt.Toolkit;
  */
 public class Barbero extends javax.swing.JFrame {
 
-    String id_ingresado;
+    int id_ingresado;
     
     public Barbero() {
         initComponents();
-        setSize(420, 420);
+        setSize(400, 290);
         setResizable(false);
-        setTitle("Administrador - Sesion de " + id_ingresado);
+        setTitle("Barbero");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         id_ingresado = IngresarBarbero.idLogin;
-        nombre_lbl.setText(Barber.findBarber(id_ingresado));
-        id_lbl.setText(Integer.toString(Barber.findID(id_ingresado)));
-        maquina_lbl.setText(Integer.toString(Barber.findMaquina(id_ingresado)));
-        porcentaje_lbl.setText(Integer.toString(Barber.findPorcentaje(id_ingresado)));
+        nombre_lbl.setText(Barber.findBarber(Integer.toString(id_ingresado)));
+        id_lbl.setText(Integer.toString(Barber.findID(Integer.toString(id_ingresado))));
+        maquina_lbl.setText(Integer.toString(Barber.findMaquina(Integer.toString(id_ingresado))));
+        porcentaje_lbl.setText(Integer.toString(Barber.findPorcentaje(Integer.toString(id_ingresado))));
     }
     
     @Override
@@ -64,6 +64,11 @@ public class Barbero extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
@@ -94,11 +99,17 @@ public class Barbero extends javax.swing.JFrame {
         porcentaje_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(porcentaje_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 130, 20));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 80, 70));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/barber.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 60, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     dispose();
+     Principal regresar = new Principal();
+     regresar.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

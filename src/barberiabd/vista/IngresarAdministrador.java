@@ -6,6 +6,7 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
+import static barberiabd.vista.IngresarBarbero.idLogin;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,7 +23,7 @@ import javax.swing.WindowConstants;
  */
 public class IngresarAdministrador extends javax.swing.JFrame {
 
-    public static String idLogin = "";
+    public static int idLogin;
     public static String contraseña;
     
    public IngresarAdministrador() {
@@ -116,14 +117,20 @@ public class IngresarAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_Salir_btnActionPerformed
 
     private void Ingresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ingresar_btnActionPerformed
-      idLogin = id_tf.getText().trim();
+      String id_string = id_tf.getText().trim();
       contraseña = pass_tf.getText().trim();
+      
+      if (id_string.equals("") || IngresarAdministrador.isNumerico(id_string) == false) {
+            JOptionPane.showMessageDialog(null, "Debe llenar una identificacion valida.");
+        } else {
+            idLogin = Integer.parseInt(id_tf.getText().trim());
+        }
 
-        if (!idLogin.equals("") || !contraseña.equals("") ) {
+        if (!contraseña.equals("")) {
             try {
                 Connection cn = Conexion.conectar();
-                PreparedStatement pst = cn.prepareStatement("select id, password from administrador where id = '" + idLogin
-                        + "' and password = '" + contraseña + "'");
+                PreparedStatement pst = cn.prepareStatement("select id, contraseña from administrador where id = '" + idLogin
+                        + "' and contraseña = '" + contraseña + "'");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
                     dispose();
@@ -135,14 +142,21 @@ public class IngresarAdministrador extends javax.swing.JFrame {
                     pass_tf.setText("");
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al iniciar sesión1, contacte al administrador. " + e);
+                JOptionPane.showMessageDialog(null, "Error al iniciar sesión1, contacte al administrador. ");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
         }
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
-
+    private static boolean isNumerico(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ingresar_btn;
     private javax.swing.JButton Salir_btn;
