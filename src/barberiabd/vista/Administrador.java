@@ -16,7 +16,7 @@ import java.awt.Toolkit;
  */
 public class Administrador extends javax.swing.JFrame {
 
-    String id_ingresado;
+    int id_ingresado;
     
     public Administrador() {
         initComponents();
@@ -26,7 +26,7 @@ public class Administrador extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         id_ingresado = IngresarAdministrador.idLogin;
-        nombre_lbl.setText(Administrator.findAdmin(id_ingresado));
+        nombre_lbl.setText(Administrator.findAdmin(Integer.toString(id_ingresado)));
     }
     
     @Override
@@ -149,7 +149,7 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 80, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, 70));
 
         nombre_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(nombre_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 150, 20));

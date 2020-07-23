@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InformeAdministrador extends javax.swing.JFrame {
 
-    String id_ingresado;
+    int id_ingresado;
     public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
 

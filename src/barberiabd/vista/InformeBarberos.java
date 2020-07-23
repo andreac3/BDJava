@@ -9,6 +9,8 @@ import barberiabd.controlador.Conexion;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,13 +26,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InformeBarberos extends javax.swing.JFrame {
 
-    String id_ingresado;
+    int id_ingresado;
     public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
+    public static int id_barbero;
 
     public InformeBarberos() {
         initComponents();
-        id_ingresado = IngresarAdministrador.idLogin;
+        id_ingresado = IngresarBarbero.idLogin;
         setResizable(false);
         setSize(580, 330);
         setTitle("Informe de barberos");
@@ -64,6 +67,22 @@ public class InformeBarberos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
         }
+        
+        
+        Tabla_Barberos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila_point = Tabla_Barberos.rowAtPoint(e.getPoint());
+                int columna_point = 2;
+                
+                if (fila_point > -1) {
+                    id_barbero = (int) model.getValueAt(fila_point, columna_point);
+                    GestionarBarbero barbero = new GestionarBarbero();
+                    barbero.setVisible(true);
+                }
+            }
+        });
+        this.dispose();
     }
 
     @Override

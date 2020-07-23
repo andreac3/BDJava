@@ -24,13 +24,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InformeVentas extends javax.swing.JFrame {
 
-    String id_ingresado;
     public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
 
     public InformeVentas() {
         initComponents();
-        id_ingresado = IngresarAdministrador.idLogin;
         setResizable(false);
         setSize(580, 330);
         setTitle("Informe de ventas");

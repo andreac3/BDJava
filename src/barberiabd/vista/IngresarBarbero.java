@@ -22,12 +22,12 @@ import javax.swing.WindowConstants;
  */
 public class IngresarBarbero extends javax.swing.JFrame {
 
-    public static String idLogin = "";
+    public static int idLogin;
     public static String contraseña;
-    
+
     public IngresarBarbero() {
         initComponents();
-        setSize(480,250);
+        setSize(400, 250);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);
@@ -100,34 +100,42 @@ public class IngresarBarbero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Ingresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ingresar_btnActionPerformed
-      idLogin = id_tf.getText().trim();
-      contraseña = pass_tf.getText().trim();
+        String id_string = id_tf.getText().trim();
+        contraseña = pass_tf.getText().trim();
 
-        if (!idLogin.equals("") || !contraseña.equals("") ) {
+        if (id_string.equals("") || IngresarBarbero.isNumerico(id_string) == false) {
+            JOptionPane.showMessageDialog(null, "Debe llenar una identificacion valida.");
+        } else {
+            idLogin = Integer.parseInt(id_tf.getText().trim());
+        }
+
+        if (!contraseña.equals("")) {
             try {
                 Connection cn = Conexion.conectar();
-                PreparedStatement pst = cn.prepareStatement("select id, password from barbero where id = '" + idLogin
-                        + "' and password = '" + contraseña + "'");
+                PreparedStatement pst = cn.prepareStatement("select id, contraseña from barbero where id = '" + idLogin
+                        + "' and contraseña = '" + contraseña + "'");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    String tipoNivel = rs.getString("tipoNivel");
+                    dispose();
+                    Barbero barber = new Barbero();
+                    barber.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Datos de acceso incorrectos");
                     id_tf.setText("");
                     pass_tf.setText("");
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al iniciar sesión1, contacte al administrador. " + e);
+                JOptionPane.showMessageDialog(null, "Error al iniciar sesión, contacte al administrador. ");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
-        }        
+        }
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
     private void Salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btnActionPerformed
-       dispose();
-       Principal retorno = new Principal();
-       retorno.setVisible(true);
+        dispose();
+        Principal retorno = new Principal();
+        retorno.setVisible(true);
     }//GEN-LAST:event_Salir_btnActionPerformed
 
 
@@ -140,4 +148,13 @@ public class IngresarBarbero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField pass_tf;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumerico(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }
