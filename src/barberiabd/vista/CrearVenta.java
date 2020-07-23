@@ -28,6 +28,7 @@ public class CrearVenta extends javax.swing.JFrame {
     static int propina;
     static int costoTotal;
     static boolean ocurreError;
+    static int porcentaje = 0;
 
     public CrearVenta() {
         initComponents();
@@ -159,8 +160,12 @@ public class CrearVenta extends javax.swing.JFrame {
             mensajeError("Ingrese el id de la venta, recuerde que debe ser un número");
             ocurreError = true;
         }
-        else{
+        else {
             idVenta = Integer.parseInt(idVenta_TF.getText());
+            if (encuentraId("venta", "id", idVenta)){
+                mensajeError("El id de la venta ya existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(idCliente_TF) || noEsNumero(idCliente_TF.getText())){
             mensajeError("Ingrese el id del cliente, recuerde que debe ser un número");
@@ -168,13 +173,21 @@ public class CrearVenta extends javax.swing.JFrame {
         }
         else {
             idCliente = Integer.parseInt(idCliente_TF.getText());
-        }
+                if (!encuentraId("cliente", "id", idCliente)) {
+                    mensajeError("El cliente no existe");
+                    ocurreError = true;
+                }
+            }
         if (estaVacio(idCorte_TF) || noEsNumero(idCorte_TF.getText())) {
             mensajeError("Ingrese el id del corte, recuerde que debe ser un número");
             ocurreError = true;
         }
         else {
             idCorte = Integer.parseInt(idCorte_TF.getText());
+            if (!encuentraId("corte", "codigo", idCorte)) {
+                mensajeError("El corte no existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(idBarbero_TF) || noEsNumero(idBarbero_TF.getText())) {
             mensajeError("Ingrese el id del barbero, recuerde que debe ser un número");
@@ -182,6 +195,10 @@ public class CrearVenta extends javax.swing.JFrame {
         }
         else {
             idBarbero = Integer.parseInt(idBarbero_TF.getText());
+            if (!encuentraId("barbero", "id", idBarbero)) {
+                mensajeError("El Barbero no existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(costo_TF) || noEsNumero(costo_TF.getText())) {
             mensajeError("Ingrese el costo, recuerde que debe ser un número");
@@ -202,13 +219,48 @@ public class CrearVenta extends javax.swing.JFrame {
             costoTotal = propina + costo;
         }
         
-        if (ocurreError){
-        //NADA
+        if (!ocurreError){
+                try {
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement(
+                        "select id from venta where id = '" + idVenta + "'");
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Venta ya existente");
+                    cn.close();
+                } else {
+                        try {
+                            Connection cn2 = Conexion.conectar();
+                            PreparedStatement pst2 = cn2.prepareStatement(
+                                    "insert into barbero values (?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+
+                            pst2.setInt(1, idVenta);
+                            pst2.setInt(2, idCorte);
+                            pst2.setInt(4, idCliente);
+                            pst2.setInt(5, idBarbero);
+                            pst2.setInt(6, costo);
+                            pst2.setInt(7, propina);
+                            pst2.setInt(8, porcentaje);
+
+
+                            pst2.executeUpdate();
+                            cn2.close();
+
+                            JOptionPane.showMessageDialog(null, "Registro exitoso");
+                            this.dispose();
+
+                        } catch (SQLException e) {
+                            System.err.println("Error en registrar Barbero" + e);
+                            JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
+                        }
+                }
+            } catch (SQLException e) {
+                System.err.println("Error en validar id del usuario." + e);
+                JOptionPane.showMessageDialog(null, "Error al comparar usuario");
+            }
         }
-        else{
-        //HACER con andrea 
-        }
-        
+    
+
     }//GEN-LAST:event_crear_btnActionPerformed
 
     private void costo_TFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costo_TFActionPerformed
@@ -264,4 +316,22 @@ public class CrearVenta extends javax.swing.JFrame {
     private static void mensajeError(String mensaje){
         JOptionPane.showMessageDialog(null, mensaje);
     } 
+    
+    private static boolean encuentraId(String tabla, String nombreId, int id){
+        try {
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement("select "+nombreId+" from "+tabla+" where id = '" + id
+                        + "'");
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    return true;
+
+                } else {
+                    return false;
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error SQL ");
+            }
+        return false;
+    }
 }
