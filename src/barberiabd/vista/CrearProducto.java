@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package barberiabd.vista;
+
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
@@ -106,25 +107,45 @@ public class CrearProducto extends javax.swing.JFrame {
     private void crear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_btnActionPerformed
         ocurreError = false;
         if (estaVacio(idProducto_TF) || noEsNumero(idProducto_TF.getText())) {
-            mensajeError("Ingrese el id del corte, recuerde que debe ser un número");
+            mensajeError("Ingrese el id del producto, recuerde que debe ser un número");
             ocurreError = true;
         } else {
             idProducto = Integer.parseInt(idProducto_TF.getText());
+            if (encuentraId("producto", "codigo", idProducto)) {
+                mensajeError("El producto ya existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(nombreProducto_TF)) {
-            mensajeError("Ingrese el nombre del corte");
+            mensajeError("Ingrese el nombre del producto");
             ocurreError = true;
         } else {
             nombreProducto = nombreProducto_TF.getText();
         }
 
-        if (ocurreError){
-        //NADA
+        if (!ocurreError) {
+            try {
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement(
+                        "insert into producto values (?,?)"); //Se agregan los datos a la base de datos
+
+                pst2.setInt(1, idProducto);
+                pst2.setString(2, nombreProducto);
+
+                pst2.executeUpdate();
+                cn2.close();
+
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+                this.dispose();
+
+            } catch (SQLException e) {
+                System.err.println("Error en registrar" + e);
+                JOptionPane.showMessageDialog(null, "Error al registrar, recuerde que el nombre debe tener menos de 20 caracteres.");
+            }
+
         }
-        else{
-        //HACER con andrea 
-        }
-        
+
+
     }//GEN-LAST:event_crear_btnActionPerformed
 
     private void idProducto_TFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idProducto_TFActionPerformed
@@ -145,25 +166,42 @@ public class CrearProducto extends javax.swing.JFrame {
     public void Limpiar() {
 
     }
-    
-    private static boolean noEsNumero(String cadena){
-	try {
-		Integer.parseInt(cadena);
-		return false;
-	} catch (NumberFormatException nfe){
-		return true;
-	}
+
+    private static boolean noEsNumero(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return false;
+        } catch (NumberFormatException nfe) {
+            return true;
+        }
     }
-    
-    private static boolean estaVacio(JTextField TF){
+
+    private static boolean estaVacio(JTextField TF) {
         if (TF.getText().length() == 0) {
             return true;
         } else {
             return false;
         }
     }
-    
-    private static void mensajeError(String mensaje){
+
+    private static void mensajeError(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
-    } 
+    }
+
+    private static boolean encuentraId(String tabla, String nombreId, int id) {
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select " + nombreId + " from " + tabla + " where "+nombreId+" = '" + id
+                    + "'");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 }

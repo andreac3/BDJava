@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package barberiabd.vista;
+
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
@@ -28,7 +29,9 @@ public class CrearVenta extends javax.swing.JFrame {
     static int propina;
     static int costoTotal;
     static boolean ocurreError;
-    static int porcentaje = 0;
+    java.util.Date date = new java.util.Date();
+    long tiempo = date.getTime();
+    java.sql.Timestamp tiemposql = new java.sql.Timestamp(tiempo);
 
     public CrearVenta() {
         initComponents();
@@ -156,33 +159,30 @@ public class CrearVenta extends javax.swing.JFrame {
 
     private void crear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_btnActionPerformed
         ocurreError = false;
-        if (estaVacio(idVenta_TF) || noEsNumero(idVenta_TF.getText()) ){
+        if (estaVacio(idVenta_TF) || noEsNumero(idVenta_TF.getText())) {
             mensajeError("Ingrese el id de la venta, recuerde que debe ser un número");
             ocurreError = true;
-        }
-        else {
+        } else {
             idVenta = Integer.parseInt(idVenta_TF.getText());
-            if (encuentraId("venta", "id", idVenta)){
+            if (encuentraId("venta", "id", idVenta)) {
                 mensajeError("El id de la venta ya existe");
                 ocurreError = true;
             }
         }
-        if (estaVacio(idCliente_TF) || noEsNumero(idCliente_TF.getText())){
+        if (estaVacio(idCliente_TF) || noEsNumero(idCliente_TF.getText())) {
             mensajeError("Ingrese el id del cliente, recuerde que debe ser un número");
             ocurreError = true;
-        }
-        else {
+        } else {
             idCliente = Integer.parseInt(idCliente_TF.getText());
-                if (!encuentraId("cliente", "id", idCliente)) {
-                    mensajeError("El cliente no existe");
-                    ocurreError = true;
-                }
+            if (!encuentraId("cliente", "id", idCliente)) {
+                mensajeError("El cliente no existe");
+                ocurreError = true;
             }
+        }
         if (estaVacio(idCorte_TF) || noEsNumero(idCorte_TF.getText())) {
             mensajeError("Ingrese el id del corte, recuerde que debe ser un número");
             ocurreError = true;
-        }
-        else {
+        } else {
             idCorte = Integer.parseInt(idCorte_TF.getText());
             if (!encuentraId("corte", "codigo", idCorte)) {
                 mensajeError("El corte no existe");
@@ -192,8 +192,7 @@ public class CrearVenta extends javax.swing.JFrame {
         if (estaVacio(idBarbero_TF) || noEsNumero(idBarbero_TF.getText())) {
             mensajeError("Ingrese el id del barbero, recuerde que debe ser un número");
             ocurreError = true;
-        }
-        else {
+        } else {
             idBarbero = Integer.parseInt(idBarbero_TF.getText());
             if (!encuentraId("barbero", "id", idBarbero)) {
                 mensajeError("El Barbero no existe");
@@ -203,63 +202,61 @@ public class CrearVenta extends javax.swing.JFrame {
         if (estaVacio(costo_TF) || noEsNumero(costo_TF.getText())) {
             mensajeError("Ingrese el costo, recuerde que debe ser un número");
             ocurreError = true;
-        } 
-        else {
+        } else {
             costo = Integer.parseInt(costo_TF.getText());
         }
-        if (estaVacio(propina_TF) ) {
+        if (estaVacio(propina_TF)) {
             costoTotal = costo;
-        } 
-        else if (noEsNumero(propina_TF.getText())){
+        } else if (noEsNumero(propina_TF.getText())) {
             mensajeError("recuerde que la propina debe ser un número");
             ocurreError = true;
-        }
-        else{
+        } else {
             propina = Integer.parseInt(propina_TF.getText());
             costoTotal = propina + costo;
         }
-        
-        if (!ocurreError){
+
+        if (!ocurreError) {
+            int porcentaje = 0;
+            try {
                 try {
-                Connection cn = Conexion.conectar();
-                PreparedStatement pst = cn.prepareStatement(
-                        "select id from venta where id = '" + idVenta + "'");
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Venta ya existente");
-                    cn.close();
-                } else {
-                        try {
-                            Connection cn2 = Conexion.conectar();
-                            PreparedStatement pst2 = cn2.prepareStatement(
-                                    "insert into barbero values (?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+                    Connection cn = Conexion.conectar();
+                    PreparedStatement pst = cn.prepareStatement("select porcentajeComision from barbero where id = '" + idBarbero
+                            + "'");
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+                        porcentaje = Integer.parseInt(rs.getString("porcentajeComision"));
+                    }
 
-                            pst2.setInt(1, idVenta);
-                            pst2.setInt(2, idCorte);
-                            pst2.setInt(4, idCliente);
-                            pst2.setInt(5, idBarbero);
-                            pst2.setInt(6, costo);
-                            pst2.setInt(7, propina);
-                            pst2.setInt(8, porcentaje);
+                } catch (SQLException e) {
+                    System.err.println("Error scar porce" + e);
+                    JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
 
-
-                            pst2.executeUpdate();
-                            cn2.close();
-
-                            JOptionPane.showMessageDialog(null, "Registro exitoso");
-                            this.dispose();
-
-                        } catch (SQLException e) {
-                            System.err.println("Error en registrar Barbero" + e);
-                            JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
-                        }
                 }
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement(
+                        "insert into venta values (?,?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+
+                pst2.setInt(1, idVenta);
+                pst2.setInt(2, idCorte);
+                pst2.setTimestamp(3, tiemposql);
+                pst2.setInt(4, idCliente);
+                pst2.setInt(5, idBarbero);
+                pst2.setInt(6, costo);
+                pst2.setInt(7, propina);
+                pst2.setInt(8, porcentaje);
+
+                pst2.executeUpdate();
+                cn2.close();
+
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+
             } catch (SQLException e) {
-                System.err.println("Error en validar id del usuario." + e);
-                JOptionPane.showMessageDialog(null, "Error al comparar usuario");
+                System.err.println("Error en registrar" + e);
+                JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
             }
+
         }
-    
+
 
     }//GEN-LAST:event_crear_btnActionPerformed
 
@@ -295,43 +292,42 @@ public class CrearVenta extends javax.swing.JFrame {
     public void Limpiar() {
 
     }
-    
-    private static boolean noEsNumero(String cadena){
-	try {
-		Integer.parseInt(cadena);
-		return false;
-	} catch (NumberFormatException nfe){
-		return true;
-	}
+
+    private static boolean noEsNumero(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return false;
+        } catch (NumberFormatException nfe) {
+            return true;
+        }
     }
-    
-    private static boolean estaVacio(JTextField TF){
+
+    private static boolean estaVacio(JTextField TF) {
         if (TF.getText().length() == 0) {
             return true;
         } else {
             return false;
         }
     }
-    
-    private static void mensajeError(String mensaje){
-        JOptionPane.showMessageDialog(null, mensaje);
-    } 
-    
-    private static boolean encuentraId(String tabla, String nombreId, int id){
-        try {
-                Connection cn = Conexion.conectar();
-                PreparedStatement pst = cn.prepareStatement("select "+nombreId+" from "+tabla+" where id = '" + id
-                        + "'");
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-                    return true;
 
-                } else {
-                    return false;
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error SQL ");
+    private static void mensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
+
+    private static boolean encuentraId(String tabla, String nombreId, int id) {
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select " + nombreId + " from " + tabla + " where " + nombreId + " = '" + id
+                    + "'");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+
+            } else {
+                return false;
             }
-        return false;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }

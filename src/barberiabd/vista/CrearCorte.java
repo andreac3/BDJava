@@ -142,6 +142,10 @@ public class CrearCorte extends javax.swing.JFrame {
             ocurreError = true;
         } else {
             idCorte = Integer.parseInt(idCorte_TF.getText());
+            if (encuentraId("corte", "codigo", idCorte)) {
+                mensajeError("El id del corte ya existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(nombreCorte_TF)) {
             mensajeError("Ingrese el nombre del corte");
@@ -163,6 +167,10 @@ public class CrearCorte extends javax.swing.JFrame {
         }
         else {
             producto1 = Integer.parseInt(producto1_TF.getText());
+            if (!encuentraId("producto", "codigo", producto1)) {
+                mensajeError("El producto1 no existe");
+                ocurreError = true;
+            }
         }
         if (estaVacio(producto2_TF) || noEsNumero(producto2_TF.getText())) {
             mensajeError("Ingrese el ide del producto usado #2, recuerde que debe ser un número");
@@ -170,14 +178,36 @@ public class CrearCorte extends javax.swing.JFrame {
         } 
         else {
             producto2 = Integer.parseInt(producto2_TF.getText());
+            if (!encuentraId("producto", "codigo", producto2)) {
+                mensajeError("El producto2 no existe");
+                ocurreError = true;
+            }
         }
         
-        if (ocurreError){
-        //NADA
+        if (!ocurreError){
+                        try {
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement(
+                        "insert into corte values (?,?,?,?,?)"); //Se agregan los datos a la base de datos
+
+                pst2.setInt(1, precioCorte);
+                pst2.setString(2, nombreCorte);
+                pst2.setInt(3, idCorte);
+                pst2.setInt(4, producto1);
+                pst2.setInt(5, producto2);
+
+                pst2.executeUpdate();
+                cn2.close();
+
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+
+            } catch (SQLException e) {
+                System.err.println("Error en registrar Barbero" + e);
+                JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
+            }
+
         }
-        else{
-        //HACER con andrea 
-        }
+
         
     }//GEN-LAST:event_crear_btnActionPerformed
 
@@ -230,4 +260,22 @@ public class CrearCorte extends javax.swing.JFrame {
     private static void mensajeError(String mensaje){
         JOptionPane.showMessageDialog(null, mensaje);
     } 
+    
+    
+    private static boolean encuentraId(String tabla, String nombreId, int id) {
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select " + nombreId + " from " + tabla + " where "+nombreId+" = '" + id
+                    + "'");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
+
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 }
