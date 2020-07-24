@@ -34,10 +34,9 @@ public class Barbero extends javax.swing.JFrame {
     
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
     }
-
     
     /**
      * This method is called from within the constructor to initialize the form.

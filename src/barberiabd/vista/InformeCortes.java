@@ -7,6 +7,8 @@ package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -56,11 +58,23 @@ public class InformeCortes extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
         }
+         Tabla_cortes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila_point = Tabla_cortes.rowAtPoint(e.getPoint());
+                int columna_point = 0;
+                
+                if (fila_point > -1) {
+                    JOptionPane.showMessageDialog(null, "No se pueden realizar modificaciones.");
+                }
+            }
+            
+        });
     }
 
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
     }
 
