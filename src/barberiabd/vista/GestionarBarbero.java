@@ -5,19 +5,43 @@
  */
 package barberiabd.vista;
 
+import barberiabd.controlador.Conexion;
+import barberiabd.modelo.Barber;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import barberiabd.vista.InformeBarberos;
+
 /**
  *
  * @author Andrea Calderon
  */
 public class GestionarBarbero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GestionarBarbero
-     */
+    int id_barberoGestion = InformeBarberos.id_barbero;
+    String direccion;
+    int contraseña;
+
     public GestionarBarbero() {
         initComponents();
+        setSize(420, 320);
+        setResizable(false);
+        setTitle("Administrador");
+        setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.decode("#dbdccd"));
+        nombre_jtf.setText(Barber.findBarber(Integer.toString(id_barberoGestion)));
+        tel_jtf.setText(Integer.toString(Barber.findTel(Integer.toString(id_barberoGestion))));
+        maquina_jtf.setText(Integer.toString(Barber.findMaquina(Integer.toString(id_barberoGestion))));
+        porcentaje_jtf.setText(Integer.toString(Barber.findPorcentaje(Integer.toString(id_barberoGestion))));
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
+        return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,13 +52,13 @@ public class GestionarBarbero extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        actualizar_btn = new javax.swing.JButton();
+        salir_btn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         nombre_jtf = new javax.swing.JTextField();
-        id_jtf = new javax.swing.JTextField();
+        tel_jtf = new javax.swing.JTextField();
         maquina_jtf = new javax.swing.JTextField();
         porcentaje_jtf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -46,16 +70,26 @@ public class GestionarBarbero extends javax.swing.JFrame {
         jLabel1.setText("Nombre:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jButton1.setText("Actualizar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
+        actualizar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        actualizar_btn.setText("Actualizar");
+        actualizar_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizar_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(actualizar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jButton2.setText("Salir");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, -1, -1));
+        salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        salir_btn.setText("Salir");
+        salir_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salir_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel2.setText("Identificación");
+        jLabel2.setText("Telefono");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
@@ -66,7 +100,7 @@ public class GestionarBarbero extends javax.swing.JFrame {
         jLabel4.setText("Porcentaje de comision:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
         getContentPane().add(nombre_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 100, -1));
-        getContentPane().add(id_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 100, -1));
+        getContentPane().add(tel_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 100, -1));
         getContentPane().add(maquina_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 100, -1));
         getContentPane().add(porcentaje_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 100, -1));
 
@@ -76,45 +110,97 @@ public class GestionarBarbero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionarBarbero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionarBarbero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionarBarbero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionarBarbero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
+        dispose();
+        Principal regresar = new Principal();
+        regresar.setVisible(true);
+    }//GEN-LAST:event_salir_btnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GestionarBarbero().setVisible(true);
+    private void actualizar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizar_btnActionPerformed
+        int validacion = 0, maquina_int, porcentaje_int, tel_int;
+        String nombre, tel, maquina, porcentaje;
+
+        nombre = nombre_jtf.getText().trim();
+        tel = tel_jtf.getText().trim();
+        maquina = maquina_jtf.getText().trim();
+        porcentaje = porcentaje_jtf.getText().trim();
+
+        if (nombre.equals("")) {
+            nombre_jtf.setBackground(Color.red);
+            validacion++;
+        }
+        if (tel.equals("")) {
+            tel_jtf.setBackground(Color.red);
+            validacion++;
+        }
+        if (maquina.equals("")) {
+            maquina_jtf.setBackground(Color.red);
+            validacion++;
+        }
+        if (porcentaje.equals("")) {
+            porcentaje_jtf.setBackground(Color.red);
+            validacion++;
+        }
+        if (GestionarBarbero.isNumerico(maquina) == false) {
+            maquina_jtf.setBackground(Color.red);
+            validacion++;
+            JOptionPane.showMessageDialog(null, "Debe ser un campo numerico");
+        }
+        if (GestionarBarbero.isNumerico(porcentaje) == false) {
+            validacion++;
+            porcentaje_jtf.setBackground(Color.red);
+            JOptionPane.showMessageDialog(null, "Debe ser un campo numerico");
+        }
+        if (GestionarBarbero.isNumerico(tel) == false) {
+            tel_jtf.setBackground(Color.red);
+            validacion++;
+            JOptionPane.showMessageDialog(null, "Debe ser un campo numerico");
+        }
+
+        if (validacion == 0) {
+            tel_int = Integer.parseInt(tel_jtf.getText().trim());
+            maquina_int = Integer.parseInt(maquina_jtf.getText().trim());
+            porcentaje_int = Integer.parseInt(porcentaje_jtf.getText().trim());
+            try {
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement("select direccion,contraseña from barbero where id = '" + id_barberoGestion + "'");
+                ResultSet rs2 = pst2.executeQuery();
+                if (rs2.next()) {
+                    String direccion = rs2.getString("direccion");
+                    int contraseña = rs2.getInt("contraseña");
+                }
+                cn2.close();
+                try {
+                    Connection cn = Conexion.conectar();
+                    PreparedStatement pst = cn.prepareStatement("update barbero set nombre=?, telefono=?, maquinaAsignada =?,porcentajeComision = 2"
+                            + "where id = '" + id_barberoGestion + "'");
+
+                    pst.setInt(1, id_barberoGestion);
+                    pst.setString(2, nombre);
+                    pst.setString(3, direccion);
+                    pst.setInt(4, tel_int);
+                    pst.setInt(5, maquina_int);
+                    pst.setInt(6, porcentaje_int);
+                    pst.setInt(7, contraseña);
+
+                    pst.executeUpdate();
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.print("Error en actualizar cliente");
+                    JOptionPane.showMessageDialog(null, "Error al actualizar cliente, contacte al desarrollador");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar cliente, contacte al desarrollador");
             }
-        });
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+        }
+
+    }//GEN-LAST:event_actualizar_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField id_jtf;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton actualizar_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -123,5 +209,17 @@ public class GestionarBarbero extends javax.swing.JFrame {
     private javax.swing.JTextField maquina_jtf;
     private javax.swing.JTextField nombre_jtf;
     private javax.swing.JTextField porcentaje_jtf;
+    private javax.swing.JButton salir_btn;
+    private javax.swing.JTextField tel_jtf;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumerico(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
 }

@@ -7,6 +7,8 @@ package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -191,8 +193,11 @@ public class CrearCliente extends javax.swing.JFrame {
      Administrador regreso = new Administrador();
      regreso.setVisible(true);
     }//GEN-LAST:event_salir_btnActionPerformed
-
-
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
+        return retValue;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton crear_btn;
     private javax.swing.JTextField dir_tf;
