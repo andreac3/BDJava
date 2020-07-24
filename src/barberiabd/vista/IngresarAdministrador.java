@@ -60,6 +60,7 @@ public class IngresarAdministrador extends javax.swing.JFrame {
         pass_tf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Ingresar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
