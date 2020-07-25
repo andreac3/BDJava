@@ -29,7 +29,7 @@ public class Principal extends javax.swing.JFrame {
     }
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.PNG"));
         return retValue;
     }
 
