@@ -6,6 +6,8 @@
 package barberiabd.vista;
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +33,7 @@ public class CrearMiembro extends javax.swing.JFrame {
     public CrearMiembro() {
         initComponents();
         setResizable(false);
-        setSize(425, 440);
+        setSize(450, 440);
         setTitle("Registrar nuevo miembro");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
@@ -173,7 +175,7 @@ public class CrearMiembro extends javax.swing.JFrame {
         id = Integer.parseInt(id_tf.getText().trim());
         telefono = Integer.parseInt(tel_tf.getText().trim());
         contraseña = pass_tf.getText().trim();
-        tipo_cbm = tipoNivel_cmb.getSelectedIndex() + 1;
+        tipo_cbm = tipoNivel_cmb.getSelectedIndex();
         
         if (nombre.equals("")) {
             nombre_tf.setBackground(Color.red);
@@ -194,7 +196,7 @@ public class CrearMiembro extends javax.swing.JFrame {
             pass_tf.setBackground(Color.red);
             validacion++;
         }
-        if (tipo_cbm == 2) {
+        if (tipo_cbm == 1) {
             tipo_String = "Administrador";
         } else {
             tipo_String = "Barbero";
@@ -215,14 +217,13 @@ public class CrearMiembro extends javax.swing.JFrame {
                         try {
                             Connection cn2 = Conexion.conectar();
                             PreparedStatement pst2 = cn2.prepareStatement(
-                                    "insert into administrador values (?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+                                    "insert into administrador values (?,?,?,?,?)"); //Se agregan los datos a la base de datos
 
                             pst2.setInt(1, id);
                             pst2.setString(2, nombre);
                             pst2.setString(3, direccion);
                             pst2.setInt(4, telefono);
                             pst2.setString(5, contraseña);
-                            pst2.setString(6, tipo_String);
 
                             pst2.executeUpdate();
                             cn2.close();
@@ -262,6 +263,8 @@ public class CrearMiembro extends javax.swing.JFrame {
                 validacionB++;
             }
             if (validacionB == 0) {
+                maquinaAsignada = Integer.parseInt(maquinaAsig_tf.getText().trim());
+                porcentajeComision = Integer.parseInt(porcentajeCom_tf.getText().trim());
                 try {
                     Connection cn = Conexion.conectar();
                     PreparedStatement pst = cn.prepareStatement(
@@ -275,16 +278,15 @@ public class CrearMiembro extends javax.swing.JFrame {
                             try {
                                 Connection cn2 = Conexion.conectar();
                                 PreparedStatement pst2 = cn2.prepareStatement(
-                                        "insert into barbero values (?,?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+                                        "insert into barbero values (?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
 
                                 pst2.setInt(1, id);
-                                pst2.setString(2, contraseña);
-                                pst2.setString(3, tipo_String);
-                                pst2.setString(4, nombre);
-                                pst2.setString(5, direccion);
-                                pst2.setInt(6, telefono);
-                                pst2.setInt(7, maquinaAsignada);
-                                pst2.setInt(8, porcentajeComision);
+                                pst2.setString(2, nombre);
+                                pst2.setString(3, direccion);
+                                pst2.setInt(4, telefono);
+                                pst2.setInt(5, maquinaAsignada);
+                                pst2.setInt(6, porcentajeComision);
+                                pst2.setString(7, contraseña);
 
                                 pst2.executeUpdate();
                                 cn2.close();
@@ -340,5 +342,11 @@ public class CrearMiembro extends javax.swing.JFrame {
         tel_tf.setText("");
         pass_tf.setText("");
         tipoNivel_cmb.setSelectedIndex(0);
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
+        return retValue;
     }
 }

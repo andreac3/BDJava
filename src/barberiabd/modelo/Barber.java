@@ -18,6 +18,7 @@ public class Barber {
     static int identificacion;
     static int maquinaAsig;
     static int porcentajeComi;
+    static int telefono;
 
     public Barber() {
     }
@@ -77,6 +78,20 @@ public class Barber {
             System.err.println("Error en conexión desde la interfaz administrador" + e);
         }
         return porcentajeComi;
+    }
+    public static int findTel (String id_ingresado){
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement(
+                    "select telefono from barbero where id ='" + id_ingresado + "'");
+            ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
+            if (rs.next()) {
+                telefono = rs.getInt("telefono");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en conexión desde la interfaz administrador" + e);
+        }
+        return telefono;
     }
 
 }

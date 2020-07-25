@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
 public class InformeBarberos extends javax.swing.JFrame {
 
     int id_ingresado;
-    public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
     public static int id_barbero;
 
@@ -73,21 +72,24 @@ public class InformeBarberos extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int fila_point = Tabla_Barberos.rowAtPoint(e.getPoint());
-                int columna_point = 2;
+                int columna_point = 1;
                 
                 if (fila_point > -1) {
                     id_barbero = (int) model.getValueAt(fila_point, columna_point);
                     GestionarBarbero barbero = new GestionarBarbero();
                     barbero.setVisible(true);
+                    JOptionPane.showMessageDialog(null, id_barbero);
                 }
             }
+            
         });
+        
         this.dispose();
     }
 
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/Logo.jpeg"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
     }
 
