@@ -36,10 +36,10 @@ public class GestionarVenta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select idVenta,idCliente,idBarbero,costo from venta where idVenta ='" + id_ingresado + "'");
+                    "select id,idCliente,idBarbero,costo from venta where id ='" + id_ingresado + "'");
             ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
             if (rs.next()) {
-                codventa = rs.getInt("idVenta");
+                codventa = rs.getInt("id");
                 codcliente = rs.getInt("idCliente");
                 codbarbero = rs.getInt("idBarbero");
                 costo = rs.getInt("costo");

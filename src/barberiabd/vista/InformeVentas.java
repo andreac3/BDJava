@@ -43,7 +43,7 @@ public class InformeVentas extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select tiemposql, idCliente, idBarbero, costo, propina from venta");
+                    "select fecha, idCliente, idBarbero, costo, propina from venta");
 
             ResultSet rs = pst.executeQuery();
             Tabla_Ventas = new JTable(model);
@@ -57,7 +57,7 @@ public class InformeVentas extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] fila = new Object[5];
                 for (int i = 0; i < 5; i++) {
-                    fila[i] = rs.getObject(i + 1);
+                    fila[i] = rs.getString(i + 1);
                 }
                 model.addRow(fila);
             }
