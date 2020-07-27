@@ -28,8 +28,8 @@ public class CrearProducto extends javax.swing.JFrame {
     public CrearProducto() {
         initComponents();
         setResizable(false);
-        setSize(425, 440);
-        setTitle("Registrar nuevo miembro");
+        setSize(443, 274);
+        setTitle("Registrar nuevo producto");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -53,7 +53,8 @@ public class CrearProducto extends javax.swing.JFrame {
         idProducto_TF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(450, 420));
+        setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(443, 274));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
@@ -74,10 +75,10 @@ public class CrearProducto extends javax.swing.JFrame {
                 crear_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(crear_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        getContentPane().add(crear_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
         salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        salir_btn.setText("Salir");
+        salir_btn.setText("Regresar");
         salir_btn.setMaximumSize(new java.awt.Dimension(105, 27));
         salir_btn.setMinimumSize(new java.awt.Dimension(105, 27));
         salir_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +86,7 @@ public class CrearProducto extends javax.swing.JFrame {
                 salir_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 80, -1));
+        getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 100, -1));
         getContentPane().add(nombreProducto_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 110, -1));
 
         idProducto_TF.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +137,7 @@ public class CrearProducto extends javax.swing.JFrame {
                 cn2.close();
 
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
-                this.dispose();
+               
 
             } catch (SQLException e) {
                 System.err.println("Error en registrar" + e);

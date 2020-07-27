@@ -60,6 +60,7 @@ public class CrearCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
@@ -171,7 +172,6 @@ public class CrearCliente extends javax.swing.JFrame {
                             tel_tf.setBackground(Color.green);
 
                             JOptionPane.showMessageDialog(null, "Registro exitoso");
-                            this.dispose();
 
                         } catch (SQLException e) {
                             System.err.println("Error en registrar cliente" + e);

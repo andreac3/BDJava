@@ -28,7 +28,7 @@ public class IngresarAdministrador extends javax.swing.JFrame {
     
    public IngresarAdministrador() {
         initComponents();
-        setSize(400, 245);
+        setSize(300, 200);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);
@@ -60,6 +60,7 @@ public class IngresarAdministrador extends javax.swing.JFrame {
         pass_tf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -133,7 +134,7 @@ public class IngresarAdministrador extends javax.swing.JFrame {
                         + "' and contraseña = '" + contraseña + "'");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    dispose();
+                    this.dispose();
                     Administrador admi = new Administrador();
                     admi.setVisible(true);
                 } else {

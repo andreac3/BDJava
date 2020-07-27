@@ -14,6 +14,8 @@ import java.sql.*;
  */
 public class Administrator {
     static String nombre;
+    static int telefono, contraseña;
+            
 
     public Administrator(String user) {
     }
@@ -31,5 +33,33 @@ public class Administrator {
             System.err.println("Error en conexión desde la interfaz administrador" + e);
         }
         return nombre;
+    }
+    public static int findTelefono (String id_ingresado){
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement(
+                    "select telefono from administrador where id ='" + id_ingresado + "'");
+            ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
+            if (rs.next()) {
+                telefono = rs.getInt("telefono");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en conexión desde la interfaz administrador" + e);
+        }
+        return telefono;
+    }
+    public static int findContraseña(String id_ingresado){
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement(
+                    "select contraseña from administrador where id ='" + id_ingresado + "'");
+            ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
+            if (rs.next()) {
+                contraseña = rs.getInt("contraseña");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en conexión desde la interfaz administrador" + e);
+        }
+        return contraseña;
     }
 }

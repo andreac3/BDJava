@@ -27,7 +27,7 @@ public class IngresarBarbero extends javax.swing.JFrame {
 
     public IngresarBarbero() {
         initComponents();
-        setSize(400, 250);
+        setSize(400, 245);
         setResizable(false);
         setTitle("Uncle B's");
         setLocationRelativeTo(null);
@@ -58,6 +58,7 @@ public class IngresarBarbero extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N

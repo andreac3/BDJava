@@ -6,9 +6,12 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
+import static barberiabd.vista.InformeAdministrador.id_admin;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,11 +29,12 @@ public class InformeVentas extends javax.swing.JFrame {
 
     public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
+    static int ventaIngresado;
 
     public InformeVentas() {
         initComponents();
         setResizable(false);
-        setSize(580, 330);
+        setSize(620, 370);
         setTitle("Informe de ventas");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
@@ -39,7 +43,7 @@ public class InformeVentas extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select fecha, codigoCliente, codigoBarbero, costo, propina from venta");
+                    "select tiemposql, idCliente, idBarbero, costo, propina from venta");
 
             ResultSet rs = pst.executeQuery();
             Tabla_Ventas = new JTable(model);
@@ -57,8 +61,8 @@ public class InformeVentas extends javax.swing.JFrame {
                 }
                 model.addRow(fila);
             }
+            
             cn.close();
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
         }
@@ -83,6 +87,9 @@ public class InformeVentas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         regresar_btn = new javax.swing.JButton();
+        venta_jtf = new javax.swing.JTextField();
+        buscarVenta_btn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -118,7 +125,29 @@ public class InformeVentas extends javax.swing.JFrame {
                 regresar_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(regresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, -1));
+        getContentPane().add(regresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
+
+        venta_jtf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        venta_jtf.setText("#venta");
+        venta_jtf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                venta_jtfActionPerformed(evt);
+            }
+        });
+        getContentPane().add(venta_jtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 110, 20));
+
+        buscarVenta_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        buscarVenta_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa.png"))); // NOI18N
+        buscarVenta_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarVenta_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buscarVenta_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 40, 40));
+
+        jLabel3.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jLabel3.setText("Para buscar una venta ingrese su codigo:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,12 +158,27 @@ public class InformeVentas extends javax.swing.JFrame {
         retorno.setVisible(true); 
     }//GEN-LAST:event_regresar_btnActionPerformed
 
+    private void venta_jtfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venta_jtfActionPerformed
+        
+    }//GEN-LAST:event_venta_jtfActionPerformed
+
+    private void buscarVenta_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarVenta_btnActionPerformed
+        dispose();
+        GestionarVenta infoventa = new GestionarVenta();
+        infoventa.setVisible(true); 
+        ventaIngresado = Integer.parseInt(venta_jtf.getText().trim());
+    }//GEN-LAST:event_buscarVenta_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla_Ventas;
+    private javax.swing.JButton buscarVenta_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton regresar_btn;
+    private javax.swing.JTextField venta_jtf;
     // End of variables declaration//GEN-END:variables
+
 }

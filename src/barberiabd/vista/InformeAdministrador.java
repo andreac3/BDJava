@@ -6,9 +6,12 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
+import static barberiabd.vista.InformeBarberos.id_barbero;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +30,7 @@ public class InformeAdministrador extends javax.swing.JFrame {
     int id_ingresado;
     public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
+    public static int id_admin;
 
     public InformeAdministrador() {
         initComponents();
@@ -62,6 +66,24 @@ public class InformeAdministrador extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
         }
+        
+        Tabla_Administradores.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila_point = Tabla_Administradores.rowAtPoint(e.getPoint());
+                int columna_point = 1;
+                
+                if (fila_point > -1) {
+                    id_admin = (int) model.getValueAt(fila_point, columna_point);
+                    GestionarAdministrador admin = new GestionarAdministrador();
+                    admin.setVisible(true);
+                    JOptionPane.showMessageDialog(null, id_admin);
+                }
+            }
+            
+        });
+        
+        this.dispose();
     }
 
    @Override

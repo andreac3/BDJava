@@ -15,10 +15,7 @@ import java.sql.*;
 public class Barber {
 
     static String nombre;
-    static int identificacion;
-    static int maquinaAsig;
-    static int porcentajeComi;
-    static int telefono;
+    static int identificacion,maquinaAsig,porcentajeComi,telefono,contraseña;
 
     public Barber() {
     }
@@ -27,7 +24,7 @@ public class Barber {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select nombre,id,maquinaAsignada,porcentajeComision from barbero where id ='" + id_ingresado + "'");
+                    "select nombre from barbero where id ='" + id_ingresado + "'");
             ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
             if (rs.next()) {
                 nombre = rs.getString("nombre");
@@ -41,7 +38,7 @@ public class Barber {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select nombre,id,maquinaAsignada,porcentajeComision from barbero where id ='" + id_ingresado + "'");
+                    "select id from barbero where id ='" + id_ingresado + "'");
             ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
             if (rs.next()) {
                 identificacion = rs.getInt("id");
@@ -92,6 +89,20 @@ public class Barber {
             System.err.println("Error en conexión desde la interfaz administrador" + e);
         }
         return telefono;
+    }
+    public static int findContraseña (String id_ingresado){
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement(
+                    "select contraseña from barbero where id ='" + id_ingresado + "'");
+            ResultSet rs = pst.executeQuery(); //Nos permite recoger lo que tomamos luego de leer la base de datos
+            if (rs.next()) {
+                contraseña = rs.getInt("contraseña");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en conexión desde la interfaz administrador" + e);
+        }
+        return contraseña;
     }
 
 }
