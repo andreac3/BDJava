@@ -64,13 +64,14 @@ public class CrearVenta extends javax.swing.JFrame {
         idVenta_TF = new javax.swing.JTextField();
         costo_TF = new javax.swing.JTextField();
         propina_TF = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        crearCliente_btn = new javax.swing.JButton();
+        crearBarbero_btn = new javax.swing.JButton();
         idCliente_TF = new javax.swing.JTextField();
         idCorte_TF = new javax.swing.JTextField();
         idBarbero_TF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(450, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -120,32 +121,50 @@ public class CrearVenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 80, -1));
+
+        idVenta_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(idVenta_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 110, -1));
 
+        costo_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         costo_TF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 costo_TFActionPerformed(evt);
             }
         });
         getContentPane().add(costo_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 110, -1));
+
+        propina_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(propina_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 110, -1));
 
-        jButton1.setText("Crear Cliente");
-        jButton1.setMaximumSize(new java.awt.Dimension(150, 27));
-        jButton1.setMinimumSize(new java.awt.Dimension(150, 27));
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 120, 30));
-
-        jButton2.setText("Crear Barbero");
-        jButton2.setMaximumSize(new java.awt.Dimension(150, 27));
-        jButton2.setMinimumSize(new java.awt.Dimension(150, 27));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        crearCliente_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        crearCliente_btn.setText("Crear Cliente");
+        crearCliente_btn.setMaximumSize(new java.awt.Dimension(150, 27));
+        crearCliente_btn.setMinimumSize(new java.awt.Dimension(150, 27));
+        crearCliente_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                crearCliente_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, 30));
+        getContentPane().add(crearCliente_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 120, 30));
+
+        crearBarbero_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        crearBarbero_btn.setText("Crear Barbero");
+        crearBarbero_btn.setMaximumSize(new java.awt.Dimension(150, 27));
+        crearBarbero_btn.setMinimumSize(new java.awt.Dimension(150, 27));
+        crearBarbero_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearBarbero_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crearBarbero_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, 30));
+
+        idCliente_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(idCliente_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 110, -1));
+
+        idCorte_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(idCorte_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 110, -1));
+
+        idBarbero_TF.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(idBarbero_TF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 110, -1));
 
         pack();
@@ -264,20 +283,28 @@ public class CrearVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_costo_TFActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void crearBarbero_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBarbero_btnActionPerformed
+      dispose();
+      CrearMiembro miembro = new CrearMiembro();
+      miembro.setVisible(true);
+    }//GEN-LAST:event_crearBarbero_btnActionPerformed
+
+    private void crearCliente_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCliente_btnActionPerformed
+     dispose();
+     CrearCliente cliente = new CrearCliente();
+     cliente.setVisible(true);
+    }//GEN-LAST:event_crearCliente_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField costo_TF;
+    private javax.swing.JButton crearBarbero_btn;
+    private javax.swing.JButton crearCliente_btn;
     private javax.swing.JButton crear_btn;
     private javax.swing.JTextField idBarbero_TF;
     private javax.swing.JTextField idCliente_TF;
     private javax.swing.JTextField idCorte_TF;
     private javax.swing.JTextField idVenta_TF;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -45,7 +45,6 @@ public class Administrador extends javax.swing.JFrame {
     private void initComponents() {
 
         crearMiembro_btn = new javax.swing.JButton();
-        crearVenta_btn = new javax.swing.JButton();
         salir_btn = new javax.swing.JButton();
         Barberos_btn = new javax.swing.JButton();
         Ventas_btn = new javax.swing.JButton();
@@ -59,8 +58,10 @@ public class Administrador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nombre_lbl = new javax.swing.JLabel();
+        agregarVenta_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         crearMiembro_btn.setText("Agregar miembro");
@@ -70,9 +71,6 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(crearMiembro_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, -1));
-
-        crearVenta_btn.setText("Agregar venta");
-        getContentPane().add(crearVenta_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 120, 20));
 
         salir_btn.setText("Salir");
         salir_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,9 +97,19 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().add(Ventas_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 120, 20));
 
         AgregarCorte_btn.setText("Agregar corte");
+        AgregarCorte_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarCorte_btnActionPerformed(evt);
+            }
+        });
         getContentPane().add(AgregarCorte_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 120, -1));
 
         AgregarProd_btn.setText("Agregar producto");
+        AgregarProd_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarProd_btnActionPerformed(evt);
+            }
+        });
         getContentPane().add(AgregarProd_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 120, -1));
 
         Productos_btn.setText("Productos");
@@ -153,6 +161,14 @@ public class Administrador extends javax.swing.JFrame {
 
         nombre_lbl.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(nombre_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 150, 20));
+
+        agregarVenta_btn.setText("Agregar venta");
+        agregarVenta_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarVenta_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(agregarVenta_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 120, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -211,6 +227,24 @@ public class Administrador extends javax.swing.JFrame {
      regresar.setVisible(true);
     }//GEN-LAST:event_salir_btnActionPerformed
 
+    private void AgregarProd_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarProd_btnActionPerformed
+     dispose();
+     CrearProducto crear_Producto = new CrearProducto();
+     crear_Producto.setVisible(true);
+    }//GEN-LAST:event_AgregarProd_btnActionPerformed
+
+    private void AgregarCorte_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCorte_btnActionPerformed
+     dispose();
+     CrearCorte crear_Corte = new CrearCorte();
+     crear_Corte.setVisible(true);
+    }//GEN-LAST:event_AgregarCorte_btnActionPerformed
+
+    private void agregarVenta_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarVenta_btnActionPerformed
+     dispose();
+     CrearVenta crear_Venta = new CrearVenta();
+     crear_Venta.setVisible(true);
+    }//GEN-LAST:event_agregarVenta_btnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Admin_btn;
     private javax.swing.JButton AgregarCliente_btn;
@@ -219,10 +253,10 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JButton Barberos_btn;
     private javax.swing.JButton Productos_btn;
     private javax.swing.JButton Ventas_btn;
+    private javax.swing.JButton agregarVenta_btn;
     private javax.swing.JButton clientes_btn;
     private javax.swing.JButton cortes_btn;
     private javax.swing.JButton crearMiembro_btn;
-    private javax.swing.JButton crearVenta_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel nombre_lbl;

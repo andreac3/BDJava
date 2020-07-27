@@ -33,7 +33,7 @@ public class CrearMiembro extends javax.swing.JFrame {
     public CrearMiembro() {
         initComponents();
         setResizable(false);
-        setSize(450, 440);
+        setSize(425, 460);
         setTitle("Registrar nuevo miembro");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
@@ -72,6 +72,7 @@ public class CrearMiembro extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
@@ -237,8 +238,7 @@ public class CrearMiembro extends javax.swing.JFrame {
                             pass_tf.setBackground(Color.green);
 
                             JOptionPane.showMessageDialog(null, "Registro exitoso");
-                            this.dispose();
-
+                            
                         } catch (SQLException e) {
                             System.err.println("Error en registrar administrador" + e);
                             JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
@@ -292,7 +292,6 @@ public class CrearMiembro extends javax.swing.JFrame {
                                 cn2.close();
 
                                 JOptionPane.showMessageDialog(null, "Registro exitoso");
-                                this.dispose();
 
                             } catch (SQLException e) {
                                 System.err.println("Error en registrar Barbero" + e);
