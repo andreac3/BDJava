@@ -7,6 +7,8 @@ package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +28,11 @@ public class GestionarVenta extends javax.swing.JFrame {
     public GestionarVenta() {
         initComponents();
         setResizable(false);
-        setSize(620, 370);
-        setTitle("Informe de ventas");
+        setSize(337, 280);
+        setTitle("Informe de venta");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        
         
         try {
             Connection cn = Conexion.conectar();
@@ -52,8 +53,14 @@ public class GestionarVenta extends javax.swing.JFrame {
                 
             }
         } catch (SQLException e) {
-            System.err.println("Error en conexión desde la interfaz administrador" + e);
+            System.err.println("Error en conexión desde la interfaz administrador");
         }
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
+        return retValue;
     }
 
     /**
@@ -77,6 +84,7 @@ public class GestionarVenta extends javax.swing.JFrame {
         costo_lbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Codigo venta:");

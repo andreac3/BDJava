@@ -9,6 +9,8 @@ import barberiabd.controlador.Conexion;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,26 +41,35 @@ public class InformeProducto extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select nombre, costo, cantidad from inventario");
+                    "select codigo,nombre from producto");
 
             ResultSet rs = pst.executeQuery();
             Tabla_Productos = new JTable(model);
             jScrollPane1.setViewportView(Tabla_Productos);
+            model.addColumn("Id");
             model.addColumn("Nombre");
-            model.addColumn("Costo");
-            model.addColumn("Cantidad");
 
             while (rs.next()) {
-                Object[] fila = new Object[3];
-                for (int i = 0; i < 3; i++) {
+                Object[] fila = new Object[2];
+                for (int i = 0; i < 2; i++) {
                     fila[i] = rs.getObject(i + 1);
                 }
                 model.addRow(fila);
             }
+            Tabla_Productos.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int fila_point = Tabla_Productos.rowAtPoint(e.getPoint());
+                    int columna_point = 1;
+                    if (fila_point > -1) {
+                       JOptionPane.showMessageDialog(null, "No se puede modificar el producto."); 
+                    }
+                }
+            });
             cn.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. ");
         }
     }
 

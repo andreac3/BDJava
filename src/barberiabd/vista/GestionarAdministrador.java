@@ -40,6 +40,7 @@ public class GestionarAdministrador extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +59,7 @@ public class GestionarAdministrador extends javax.swing.JFrame {
         tel_jtf = new javax.swing.JTextField();
         contraseña_jtf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -74,7 +76,7 @@ public class GestionarAdministrador extends javax.swing.JFrame {
                 actualizar_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(actualizar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+        getContentPane().add(actualizar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, 30));
 
         salir_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         salir_btn.setText("Salir");
@@ -83,7 +85,7 @@ public class GestionarAdministrador extends javax.swing.JFrame {
                 salir_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
+        getContentPane().add(salir_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         jLabel2.setText("Telefono");
@@ -99,6 +101,15 @@ public class GestionarAdministrador extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/barber.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 70, 70));
 
+        jButton1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
+        jButton1.setText("Borrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -109,7 +120,7 @@ public class GestionarAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_salir_btnActionPerformed
 
     private void actualizar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizar_btnActionPerformed
-        int validacion = 0, contraseña_int,tel_int;
+        int validacion = 0, contraseña_int, tel_int;
         String nombre, tel, contraseña;
 
         nombre = nombre_jtf.getText().trim();
@@ -128,13 +139,13 @@ public class GestionarAdministrador extends javax.swing.JFrame {
             contraseña_jtf.setBackground(Color.red);
             validacion++;
         }
-        
+
         if (GestionarAdministrador.isNumerico(contraseña) == false) {
             contraseña_jtf.setBackground(Color.red);
             validacion++;
             JOptionPane.showMessageDialog(null, "Debe ser un campo numerico");
         }
-        
+
         if (GestionarAdministrador.isNumerico(tel) == false) {
             tel_jtf.setBackground(Color.red);
             validacion++;
@@ -178,10 +189,31 @@ public class GestionarAdministrador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_actualizar_btnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String prueba;
+        if (id_adminGestion == 1234) {
+            JOptionPane.showMessageDialog(null, "No se puede borrar el administrador por defecto.");
+        } else {
+            try {
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement("DELETE FROM administrador where id = '" + id_adminGestion + "'");
+                pst2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Administrador borrado exitosamente");
+                this.dispose();
+                Principal prin = new Principal();
+                prin.setVisible(true);
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar cliente, contacte al desarrollador");
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizar_btn;
     private javax.swing.JTextField contraseña_jtf;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,6 +6,7 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
+import static barberiabd.vista.GestionarVenta.codventa;
 import static barberiabd.vista.InformeAdministrador.id_admin;
 import java.awt.Color;
 import java.awt.Image;
@@ -61,10 +62,19 @@ public class InformeVentas extends javax.swing.JFrame {
                 }
                 model.addRow(fila);
             }
-            
             cn.close();
+            Tabla_Ventas.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int fila_point = Tabla_Ventas.rowAtPoint(e.getPoint());
+                    int columna_point = 1;
+                    if (fila_point > -1) {
+                       JOptionPane.showMessageDialog(null, "No se puede modificar la venta."); 
+                    }
+                }
+            });
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. ");
         }
     }
 
@@ -73,6 +83,7 @@ public class InformeVentas extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,7 +139,6 @@ public class InformeVentas extends javax.swing.JFrame {
         getContentPane().add(regresar_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
 
         venta_jtf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        venta_jtf.setText("#venta");
         venta_jtf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 venta_jtfActionPerformed(evt);
@@ -155,18 +165,27 @@ public class InformeVentas extends javax.swing.JFrame {
     private void regresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresar_btnActionPerformed
         dispose();
         Administrador retorno = new Administrador();
-        retorno.setVisible(true); 
+        retorno.setVisible(true);
     }//GEN-LAST:event_regresar_btnActionPerformed
 
     private void venta_jtfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venta_jtfActionPerformed
-        
+
     }//GEN-LAST:event_venta_jtfActionPerformed
 
     private void buscarVenta_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarVenta_btnActionPerformed
-        dispose();
-        GestionarVenta infoventa = new GestionarVenta();
-        infoventa.setVisible(true); 
-        ventaIngresado = Integer.parseInt(venta_jtf.getText().trim());
+      String ventaIngresado_string = venta_jtf.getText().trim();  
+        if (!ventaIngresado_string.equals("")) {
+            ventaIngresado = Integer.parseInt(ventaIngresado_string);
+            if (encuentraId("venta", "id", ventaIngresado) == true) {
+                dispose();
+                GestionarVenta infoventa = new GestionarVenta();
+                infoventa.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe la venta que está buscando");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe de ingresar el id de la venta.");
+        }
     }//GEN-LAST:event_buscarVenta_btnActionPerformed
 
 
@@ -180,5 +199,20 @@ public class InformeVentas extends javax.swing.JFrame {
     private javax.swing.JButton regresar_btn;
     private javax.swing.JTextField venta_jtf;
     // End of variables declaration//GEN-END:variables
+private static boolean encuentraId(String tabla, String nombreId, int id) {
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select " + nombreId + " from " + tabla + " where " + nombreId + " = '" + id
+                    + "'");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return true;
 
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 }

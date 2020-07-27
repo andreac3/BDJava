@@ -78,7 +78,6 @@ public class InformeBarberos extends javax.swing.JFrame {
                     id_barbero = (int) model.getValueAt(fila_point, columna_point);
                     GestionarBarbero barbero = new GestionarBarbero();
                     barbero.setVisible(true);
-                    JOptionPane.showMessageDialog(null, id_barbero);
                 }
             }
             

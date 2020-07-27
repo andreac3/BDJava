@@ -25,9 +25,9 @@ public class GestionarBarbero extends javax.swing.JFrame {
 
     public GestionarBarbero() {
         initComponents();
-        setSize(400, 320);
+        setSize(400, 330);
         setResizable(false);
-        setTitle("Administrador");
+        setTitle("Actualizar barbero");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         nombre_jtf.setText(Barber.findBarber(Integer.toString(id_barberoGestion)));
