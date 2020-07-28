@@ -17,18 +17,18 @@ import javax.swing.WindowConstants;
  *
  * @author Andrea Calderon
  */
-public class CrearCliente extends javax.swing.JFrame {
+public class CrearProveedor extends javax.swing.JFrame {
 
     static String nombre;
     static String direccion;
     static int id;
     static String telefono;
 
-    public CrearCliente() {
+    public CrearProveedor() {
         initComponents();
         setResizable(false);
         setSize(400, 300);
-        setTitle("Registrar nuevo miembro");
+        setTitle("Registrar nuevo proveedor");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,6 +54,7 @@ public class CrearCliente extends javax.swing.JFrame {
         crear_btn = new javax.swing.JButton();
         salir_btn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -108,6 +109,9 @@ public class CrearCliente extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, 60));
 
+        jLabel6.setText("Proveedor");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,11 +135,11 @@ public class CrearCliente extends javax.swing.JFrame {
             try {
                 Connection cn = Conexion.conectar();
                 PreparedStatement pst = cn.prepareStatement(
-                        "select id from cliente where id = '" + id + "'");
+                        "select id from proveedor where id = '" + id + "'");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
                     id_tf.setBackground(Color.red);
-                    JOptionPane.showMessageDialog(null, "Identificacion ya existente");
+                    JOptionPane.showMessageDialog(null, "Proveedor ya existente");
                     cn.close();
                 } else {
                     cn.close();
@@ -150,7 +154,7 @@ public class CrearCliente extends javax.swing.JFrame {
                         try {
                             Connection cn2 = Conexion.conectar();
                             PreparedStatement pst2 = cn2.prepareStatement(
-                                    "insert into cliente values (?,?,?,?)"); //Se agregan los datos a la base de datos
+                                    "insert into proveedor values (?,?,?,?)"); //Se agregan los datos a la base de datos
 
                             pst2.setInt(1, id);
                             pst2.setString(2, nombre);
@@ -170,7 +174,7 @@ public class CrearCliente extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Registro exitoso");
 
                         } catch (SQLException e) {
-                            System.err.println("Error en registrar cliente" + e);
+                            System.err.println("Error en registrar proveedor" + e);
                             JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
                         }
                     } else {
@@ -178,8 +182,8 @@ public class CrearCliente extends javax.swing.JFrame {
                     }
                 }
             } catch (SQLException e) {
-                System.err.println("Error en validar id del cliente." + e);
-                JOptionPane.showMessageDialog(null, "Error al comparar cliente");
+                System.err.println("Error en validar id del proveedor." + e);
+                JOptionPane.showMessageDialog(null, "Error al comparar proveedor");
             }
         }
     }//GEN-LAST:event_crear_btnActionPerformed
@@ -203,6 +207,7 @@ public class CrearCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField nombre_tf;
     private javax.swing.JButton salir_btn;
     private javax.swing.JTextField tel_tf;

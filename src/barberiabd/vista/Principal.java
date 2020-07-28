@@ -100,6 +100,7 @@ public class Principal extends javax.swing.JFrame {
        dispose();
        IngresarAdministrador entrar = new IngresarAdministrador();
        entrar.setVisible(true);
+
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
     private void Salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btnActionPerformed

@@ -151,6 +151,11 @@ public class CrearMiembro extends javax.swing.JFrame {
         getContentPane().add(porcentajeCom_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 110, 20));
 
         tipoNivel_cmb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Administrador", "Barbero" }));
+        tipoNivel_cmb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoNivel_cmbActionPerformed(evt);
+            }
+        });
         getContentPane().add(tipoNivel_cmb, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 110, -1));
 
         jLabel10.setFont(new java.awt.Font("Leelawadee", 1, 14)); // NOI18N
@@ -313,6 +318,10 @@ public class CrearMiembro extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_crear_btnActionPerformed
+
+    private void tipoNivel_cmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoNivel_cmbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoNivel_cmbActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
