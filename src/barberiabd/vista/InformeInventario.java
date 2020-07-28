@@ -41,8 +41,8 @@ public class InformeInventario extends javax.swing.JFrame {
                     "select codigoProducto, nombre, costo, cantidad from inventario");
 
             ResultSet rs = pst.executeQuery();
-            Tabla_Productos = new JTable(model);
-            jScrollPane1.setViewportView(Tabla_Productos);
+            Tabla_Inventario = new JTable(model);
+            Tabla_inventario.setViewportView(Tabla_Inventario);
             model.addColumn("Id");
             model.addColumn("Nombre");
             model.addColumn("Costo");
@@ -58,7 +58,7 @@ public class InformeInventario extends javax.swing.JFrame {
             cn.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. ");
+            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
         }
     }
 
@@ -76,8 +76,8 @@ public class InformeInventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla_Productos = new javax.swing.JTable();
+        Tabla_inventario = new javax.swing.JScrollPane();
+        Tabla_Inventario = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         regresar_btn = new javax.swing.JButton();
@@ -86,7 +86,7 @@ public class InformeInventario extends javax.swing.JFrame {
         setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Tabla_Productos.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_Inventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -97,9 +97,9 @@ public class InformeInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tabla_Productos);
+        Tabla_inventario.setViewportView(Tabla_Inventario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 560, 130));
+        getContentPane().add(Tabla_inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 560, 130));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         jLabel1.setText("Lista de los productos:");
@@ -129,10 +129,10 @@ public class InformeInventario extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla_Productos;
+    private javax.swing.JTable Tabla_Inventario;
+    private javax.swing.JScrollPane Tabla_inventario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton regresar_btn;
     // End of variables declaration//GEN-END:variables
 }
