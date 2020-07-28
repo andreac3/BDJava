@@ -117,8 +117,8 @@ public class GestionarInventario extends javax.swing.JFrame {
 
     private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
         dispose();
-        Principal regresar = new Principal();
-        regresar.setVisible(true);
+        Administrador retorno = new Administrador();
+        retorno.setVisible(true);
     }//GEN-LAST:event_salir_btnActionPerformed
 
     private void actualizar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizar_btnActionPerformed

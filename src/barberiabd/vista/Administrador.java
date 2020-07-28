@@ -264,11 +264,15 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarVenta_btnActionPerformed
 
     private void AgregarInven_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarInven_btnActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        GestionarInventario inventario = new GestionarInventario();
+        inventario.setVisible(true);
     }//GEN-LAST:event_AgregarInven_btnActionPerformed
 
     private void inventario_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventario_btnActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        InformeInventario inf_inventario = new InformeInventario();
+        inf_inventario.setVisible(true);
     }//GEN-LAST:event_inventario_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
