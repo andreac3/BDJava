@@ -27,7 +27,7 @@ public class GestionarInventario extends javax.swing.JFrame {
         initComponents();
         setSize(400, 320);
         setResizable(false);
-        setTitle("Administrador");
+        setTitle("Gestionar Inventarios");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
 
@@ -122,7 +122,7 @@ public class GestionarInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_salir_btnActionPerformed
 
     private void actualizar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizar_btnActionPerformed
-        int idProducto = 0, idProveedor=0, cantidad = 0, cantidadInventario, cantidadTotal;
+        int idProducto = 0, idProveedor = 0, cantidad = 0, cantidadInventario, cantidadTotal;
         boolean ocurreError;
 
         ocurreError = false;
@@ -155,30 +155,49 @@ public class GestionarInventario extends javax.swing.JFrame {
             cantidad = Integer.parseInt(cantidad_TF.getText());
         }
 
-        if (tipoMov_cmb.getSelectedIndex() == 1) {
+        if (!ocurreError) {
+            try {
+                Connection cn2 = Conexion.conectar();
+                PreparedStatement pst2 = cn2.prepareStatement("select codigoProducto, codigoProveedor, cantidad from inventario where codigoProducto = '" + idProducto + "'");
+                ResultSet rs2 = pst2.executeQuery();
+                if (rs2.next()) {
+                    cantidadInventario = Integer.parseInt(rs2.getString("cantidad"));
+                    if (tipoMov_cmb.getSelectedIndex() == 1) {
+                        cantidadTotal = cantidadInventario - cantidad;
+                    } else {cantidadTotal = cantidadInventario + cantidad;}
+                    
+                    if (cantidadTotal >= 0) {
+                        try {
+                            Connection cn = Conexion.conectar();
+                            PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET codigoProducto = ?, codigoProveedor = ?, cantidad =? where codigoProducto = '" + idProducto + "'");
 
-            cantidad = -cantidad;
+                            pst.setInt(1, idProducto);
+                            pst.setInt(2, idProveedor);
+                            pst.setInt(3, cantidadTotal);
 
-        }
+                            pst.executeUpdate();
+                            cn.close();
+                            JOptionPane.showMessageDialog(null, "El movimiento de inventario registro correctamente ");
+                            idProducto_TF.setText("");
+                            idProveedor_TF.setText("");
+                            cantidad_TF.setText("");
+                        } catch (SQLException e) {
+                            System.err.print("Error en actualizar inventario1" + e);
+                            JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
+                        }
+                        cn2.close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La cantidad en el inventario debe ser mayor o igual a 0 ");
+                    }
 
-        
-        if(!ocurreError){
-        try {
-            Connection cn2 = Conexion.conectar();
-            PreparedStatement pst2 = cn2.prepareStatement("select codigoProducto, codigoProveedor, cantidad from inventario where codigoProducto = '" + idProducto + "'");
-            ResultSet rs2 = pst2.executeQuery();
-            if (rs2.next()) {
-                cantidadInventario = Integer.parseInt(rs2.getString("cantidad"));
-                cantidadTotal = cantidadInventario - cantidad;
-                
-                if (cantidadTotal >= 0) {
+                } else if (cantidad > 0) {
                     try {
                         Connection cn = Conexion.conectar();
-                        PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET codigoProducto = ?, codigoProveedor = ?, cantidad =? where codigoProducto = '" + idProducto + "'");
+                        PreparedStatement pst = cn.prepareStatement("INSERT INTO inventario VALUES (?,?,?)");
 
                         pst.setInt(1, idProducto);
                         pst.setInt(2, idProveedor);
-                        pst.setInt(3, cantidadTotal);
+                        pst.setInt(3, cantidad);
 
                         pst.executeUpdate();
                         cn.close();
@@ -187,39 +206,18 @@ public class GestionarInventario extends javax.swing.JFrame {
                         idProveedor_TF.setText("");
                         cantidad_TF.setText("");
                     } catch (SQLException e) {
-                        System.err.print("Error en actualizar inventario1" + e);
+                        System.err.print("Error en actualizar inventario" + e);
                         JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
                     }
                     cn2.close();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad ingresada debe ser mayor o igual a 0 ");
                 }
-                JOptionPane.showMessageDialog(null, "La cantidad en el inventario debe ser mayor o igual a 0 ");
-
-            } else {
-                try {
-                    Connection cn = Conexion.conectar();
-                    PreparedStatement pst = cn.prepareStatement("INSERT INTO inventario VALUES (?,?,?)");
-
-                    pst.setInt(1, idProducto);
-                    pst.setInt(2, idProveedor);
-                    pst.setInt(3, cantidad);
-
-                    pst.executeUpdate();
-                    cn.close();
-                    JOptionPane.showMessageDialog(null, "El movimiento de inventario registro correctamente ");
-                    idProducto_TF.setText("");
-                    idProveedor_TF.setText("");
-                    cantidad_TF.setText("");
-                } catch (SQLException e) {
-                    System.err.print("Error en actualizar inventario2" + e);
-                    JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
-                }
-                cn2.close();
-            
+            } catch (SQLException e) {
+                System.err.print("Error en actualizar inventario" + e);
+                JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
             }
-        } catch (SQLException e) {
-            System.err.print("Error en actualizar inventario3" + e);
-            JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
-        }
         }
     }
 
@@ -259,8 +257,6 @@ public class GestionarInventario extends javax.swing.JFrame {
         } catch (SQLException e) {
             return false;
         }
-        
-      
 
 
     }//GEN-LAST:event_actualizar_btnActionPerformed

@@ -28,7 +28,8 @@ public class CrearVenta extends javax.swing.JFrame {
     static int costo;
     static int propina;
     static int costoTotal;
-    static boolean ocurreError;
+    static boolean ocurreError, invOk;
+    static int idProducto1, idProducto2, idProducto3;
     java.util.Date date = new java.util.Date();
     long tiempo = date.getTime();
     java.sql.Timestamp tiemposql = new java.sql.Timestamp(tiempo);
@@ -37,7 +38,7 @@ public class CrearVenta extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setSize(425, 440);
-        setTitle("Registrar nuevo miembro");
+        setTitle("Registrar una nueva venta");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -235,45 +236,88 @@ public class CrearVenta extends javax.swing.JFrame {
         }
 
         if (!ocurreError) {
-            int porcentaje = 0;
+
+            //VERIFICACIÓN DE INVENTARIO 
+            //PRODUCTO 1
             try {
-                try {
-                    Connection cn = Conexion.conectar();
-                    PreparedStatement pst = cn.prepareStatement("select porcentajeComision from barbero where id = '" + idBarbero
-                            + "'");
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-                        porcentaje = Integer.parseInt(rs.getString("porcentajeComision"));
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement("select productoObligatorio1, productoObligatorio2, extra "
+                        + " from corte where codigo = '" + idCorte
+                        + "'");
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    idProducto1 = Integer.parseInt(rs.getString("productoObligatorio1"));
+                    idProducto2 = Integer.parseInt(rs.getString("productoObligatorio2"));
+                    idProducto3 = Integer.parseInt(rs.getString("extra"));
+                    if (quitarProducto(idProducto1)) {
+                        if (quitarProducto(idProducto2)) {
+                            if (idProducto3 != 0) {
+                                if (quitarProducto(idProducto3)) {
+                                    invOk = true;
+                                } else {
+                                    invOk = false;
+                                }
+                            } else {
+                                invOk = true;
+                            }
+                        } else {
+                            invOk = false;
+                        }
+                    } else {
+                        invOk = false;
                     }
 
-                } catch (SQLException e) {
-                    System.err.println("Error scar porce" + e);
-                    JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
-
+                } else {
+                    invOk = false;
                 }
-                Connection cn2 = Conexion.conectar();
-                PreparedStatement pst2 = cn2.prepareStatement(
-                        "insert into venta values (?,?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
-
-                pst2.setInt(1, idVenta);
-                pst2.setInt(2, idCorte);
-                pst2.setTimestamp(3, tiemposql);
-                pst2.setInt(4, idCliente);
-                pst2.setInt(5, idBarbero);
-                pst2.setInt(6, costo);
-                pst2.setInt(7, propina);
-                pst2.setInt(8, porcentaje);
-
-                pst2.executeUpdate();
-                cn2.close();
-
-                JOptionPane.showMessageDialog(null, "Registro exitoso");
 
             } catch (SQLException e) {
-                System.err.println("Error en registrar" + e);
+                System.err.println("Error scar porce" + e);
                 JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
+                invOk = false;
+
             }
 
+            if (invOk) {
+                int porcentaje = 0;
+                try {
+                    try {
+                        Connection cn = Conexion.conectar();
+                        PreparedStatement pst = cn.prepareStatement("select porcentajeComision from barbero where id = '" + idBarbero
+                                + "'");
+                        ResultSet rs = pst.executeQuery();
+                        if (rs.next()) {
+                            porcentaje = Integer.parseInt(rs.getString("porcentajeComision"));
+                        }
+
+                    } catch (SQLException e) {
+                        System.err.println("Error scar porce" + e);
+                        JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
+
+                    }
+                    Connection cn2 = Conexion.conectar();
+                    PreparedStatement pst2 = cn2.prepareStatement(
+                            "insert into venta values (?,?,?,?,?,?,?,?)"); //Se agregan los datos a la base de datos
+
+                    pst2.setInt(1, idVenta);
+                    pst2.setInt(2, idCorte);
+                    pst2.setTimestamp(3, tiemposql);
+                    pst2.setInt(4, idCliente);
+                    pst2.setInt(5, idBarbero);
+                    pst2.setInt(6, costo);
+                    pst2.setInt(7, propina);
+                    pst2.setInt(8, porcentaje);
+
+                    pst2.executeUpdate();
+                    cn2.close();
+
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+
+                } catch (SQLException e) {
+                    System.err.println("Error en registrar" + e);
+                    JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
+                }
+            }
         }
 
 
@@ -284,15 +328,15 @@ public class CrearVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_costo_TFActionPerformed
 
     private void crearBarbero_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBarbero_btnActionPerformed
-      dispose();
-      CrearMiembro miembro = new CrearMiembro();
-      miembro.setVisible(true);
+        dispose();
+        CrearMiembro miembro = new CrearMiembro();
+        miembro.setVisible(true);
     }//GEN-LAST:event_crearBarbero_btnActionPerformed
 
     private void crearCliente_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCliente_btnActionPerformed
-     dispose();
-     CrearCliente cliente = new CrearCliente();
-     cliente.setVisible(true);
+        dispose();
+        CrearCliente cliente = new CrearCliente();
+        cliente.setVisible(true);
     }//GEN-LAST:event_crearCliente_btnActionPerformed
 
 
@@ -356,5 +400,45 @@ public class CrearVenta extends javax.swing.JFrame {
         } catch (SQLException e) {
             return false;
         }
+    }
+
+    //Este método quita una unidad del inventario del producto ingresado, si este proceso falla retorna false.
+    private static boolean quitarProducto(int idProducto) {
+        int idProveedor = 0, cantidadInventario, cantidadTotal;
+        try {
+            Connection cn2 = Conexion.conectar();
+            PreparedStatement pst2 = cn2.prepareStatement("select codigoProducto, codigoProveedor, cantidad from inventario where codigoProducto = '" + idProducto + "'");
+            ResultSet rs2 = pst2.executeQuery();
+            if (rs2.next()) {
+                cantidadInventario = Integer.parseInt(rs2.getString("cantidad"));
+                cantidadTotal = cantidadInventario - 1;
+                idProveedor = Integer.parseInt(rs2.getString("codigoProveedor"));
+
+                if (cantidadTotal >= 0) {
+                    try {
+                        Connection cn = Conexion.conectar();
+                        PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET codigoProducto = ?, codigoProveedor = ?, cantidad =? where codigoProducto = '" + idProducto + "'");
+
+                        pst.setInt(1, idProducto);
+                        pst.setInt(2, idProveedor);
+                        pst.setInt(3, cantidadTotal);
+
+                        pst.executeUpdate();
+                        cn.close();
+                        return true;
+                    } catch (SQLException e) {
+                        System.err.print("Error en actualizar inventario" + e);
+                        JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
+                    }
+                    cn2.close();
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad del producto " + idProducto + " en el inventario debe ser mayor o igual a 1 ");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.print("Error en actualizar inventario" + e);
+            JOptionPane.showMessageDialog(null, "Error al actualizar el inventario, contacte al desarrollador");
+        }
+        return false;
     }
 }

@@ -100,8 +100,10 @@ public class Principal extends javax.swing.JFrame {
        dispose();
        /*IngresarAdministrador entrar = new IngresarAdministrador();
        entrar.setVisible(true);*/
-       GestionarInventario inventario = new GestionarInventario();
-       inventario.setVisible(true);
+       /*GestionarInventario inventario = new GestionarInventario();
+       inventario.setVisible(true);*/
+       CrearVenta venta = new CrearVenta();
+       venta.setVisible(true);
     }//GEN-LAST:event_Ingresar_btnActionPerformed
 
     private void Salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btnActionPerformed
