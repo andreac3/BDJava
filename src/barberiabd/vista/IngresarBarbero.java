@@ -52,10 +52,10 @@ public class IngresarBarbero extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         id_tf = new javax.swing.JTextField();
-        pass_tf = new javax.swing.JTextField();
         Ingresar_btn = new javax.swing.JButton();
         Salir_btn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        pass_tf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -71,9 +71,6 @@ public class IngresarBarbero extends javax.swing.JFrame {
 
         id_tf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         getContentPane().add(id_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 140, 20));
-
-        pass_tf.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        getContentPane().add(pass_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 140, 20));
 
         Ingresar_btn.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
         Ingresar_btn.setText("Ingresar");
@@ -95,6 +92,7 @@ public class IngresarBarbero extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 80, 70));
+        getContentPane().add(pass_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 140, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -146,7 +144,7 @@ public class IngresarBarbero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField pass_tf;
+    private javax.swing.JPasswordField pass_tf;
     // End of variables declaration//GEN-END:variables
 
     private static boolean isNumerico(String cadena) {

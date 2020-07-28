@@ -7,6 +7,8 @@ package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +40,12 @@ public class CrearCorte extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
+        return retValue;
     }
 
     /**

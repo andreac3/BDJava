@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package barberiabd.vista;
+
 import barberiabd.controlador.Conexion;
 import java.awt.Color;
 import java.awt.Image;
@@ -179,10 +180,10 @@ public class CrearMiembro extends javax.swing.JFrame {
         nombre = nombre_tf.getText().trim();
         direccion = direccion_tf.getText().trim();
         id = Integer.parseInt(id_tf.getText().trim());
-        telefono = Integer.parseInt(tel_tf.getText().trim());
+        String telefono_string = tel_tf.getText().trim();
         contraseña = pass_tf.getText().trim();
         tipo_cbm = tipoNivel_cmb.getSelectedIndex();
-        
+
         if (nombre.equals("")) {
             nombre_tf.setBackground(Color.red);
             validacion++;
@@ -192,10 +193,6 @@ public class CrearMiembro extends javax.swing.JFrame {
         }
         if ((Integer.toString(id)).equals("")) {
             id_tf.setBackground(Color.red);
-            validacion++;
-        }
-        if ((Integer.toString(telefono)).equals("")) {
-            tel_tf.setBackground(Color.red);
             validacion++;
         }
         if (contraseña.equals("")) {
@@ -208,6 +205,9 @@ public class CrearMiembro extends javax.swing.JFrame {
             tipo_String = "Barbero";
         }
         if (tipo_String.equals("Administrador") && validacion == 0) {
+            if (telefono_string.equals("")) {
+                int telefono = 0;
+            }
             try {
                 Connection cn = Conexion.conectar();
                 PreparedStatement pst = cn.prepareStatement(
@@ -243,7 +243,7 @@ public class CrearMiembro extends javax.swing.JFrame {
                             pass_tf.setBackground(Color.green);
 
                             JOptionPane.showMessageDialog(null, "Registro exitoso");
-                            
+
                         } catch (SQLException e) {
                             System.err.println("Error en registrar administrador" + e);
                             JOptionPane.showMessageDialog(null, "Error al registrar, contacte al desarrollador.");
@@ -259,6 +259,10 @@ public class CrearMiembro extends javax.swing.JFrame {
         }
 
         if (validacion == 0 && tipo_String.equals("Barbero")) {
+            if (telefono_string.equals("")) {
+                tel_tf.setBackground(Color.red);
+                validacionB++;
+            }
             if ((maquinaAsig_tf.getText().trim()).equals("")) {
                 maquinaAsig_tf.setBackground(Color.red);
                 validacionB++;
@@ -270,6 +274,7 @@ public class CrearMiembro extends javax.swing.JFrame {
             if (validacionB == 0) {
                 maquinaAsignada = Integer.parseInt(maquinaAsig_tf.getText().trim());
                 porcentajeComision = Integer.parseInt(porcentajeCom_tf.getText().trim());
+                telefono = Integer.parseInt(telefono_string);
                 try {
                     Connection cn = Conexion.conectar();
                     PreparedStatement pst = cn.prepareStatement(
@@ -351,7 +356,7 @@ public class CrearMiembro extends javax.swing.JFrame {
         pass_tf.setText("");
         tipoNivel_cmb.setSelectedIndex(0);
     }
-    
+
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));

@@ -6,9 +6,12 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
+import static barberiabd.vista.InformeBarberos.id_barbero;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,8 +27,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InformeClientes extends javax.swing.JFrame {
 
-     public static String user_update = "";
+    public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
+    String estado, nombre, direccion;
+    static int id_estadoCliente;
 
     public InformeClientes() {
         initComponents();
@@ -40,7 +45,6 @@ public class InformeClientes extends javax.swing.JFrame {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
                     "select nombre, id, telefono from cliente");
-
             ResultSet rs = pst.executeQuery();
             Tabla_Clientes = new JTable(model);
             jScrollPane1.setViewportView(Tabla_Clientes);
@@ -56,9 +60,18 @@ public class InformeClientes extends javax.swing.JFrame {
                 model.addRow(fila);
             }
             cn.close();
-
+            Tabla_Clientes.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int fila_point = Tabla_Clientes.rowAtPoint(e.getPoint());
+                    int columna_point = 1;
+                    if (fila_point > -1) {
+                       JOptionPane.showMessageDialog(null, "No se puede modificar el cliente."); 
+                    }
+                }
+            });
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. ");
         }
     }
 
@@ -125,7 +138,7 @@ public class InformeClientes extends javax.swing.JFrame {
     private void regresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresar_btnActionPerformed
         dispose();
         Administrador retorno = new Administrador();
-        retorno.setVisible(true);  
+        retorno.setVisible(true);
     }//GEN-LAST:event_regresar_btnActionPerformed
 
 

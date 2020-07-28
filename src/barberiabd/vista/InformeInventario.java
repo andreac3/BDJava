@@ -6,12 +6,9 @@
 package barberiabd.vista;
 
 import barberiabd.controlador.Conexion;
-import static barberiabd.vista.InformeBarberos.id_barbero;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,19 +22,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Andrea Calderon
  */
-public class InformeAdministrador extends javax.swing.JFrame {
+public class InformeInventario extends javax.swing.JFrame {
 
-    int id_ingresado;
-    public static String user_update = "";
     DefaultTableModel model = new DefaultTableModel();
-    public static int id_admin;
 
-    public InformeAdministrador() {
+    public InformeInventario() {
         initComponents();
-        id_ingresado = IngresarAdministrador.idLogin;
         setResizable(false);
         setSize(580, 330);
-        setTitle("Informe de administradores");
+        setTitle("Informe del inventario");
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#dbdccd"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -45,18 +38,19 @@ public class InformeAdministrador extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select nombre, id, telefono from administrador");
+                    "select codigoProducto, nombre, costo, cantidad from inventario");
 
             ResultSet rs = pst.executeQuery();
-            Tabla_Administradores = new JTable(model);
-            jScrollPane1.setViewportView(Tabla_Administradores);
+            Tabla_Productos = new JTable(model);
+            jScrollPane1.setViewportView(Tabla_Productos);
+            model.addColumn("Id");
             model.addColumn("Nombre");
-            model.addColumn("Identificación");
-            model.addColumn("Telefono");
+            model.addColumn("Costo");
+            model.addColumn("Cantidad");
 
             while (rs.next()) {
-                Object[] fila = new Object[3];
-                for (int i = 0; i < 3; i++) {
+                Object[] fila = new Object[4];
+                for (int i = 0; i < 4; i++) {
                     fila[i] = rs.getObject(i + 1);
                 }
                 model.addRow(fila);
@@ -64,28 +58,11 @@ public class InformeAdministrador extends javax.swing.JFrame {
             cn.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. " + e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar información contacte al administrador. ");
         }
-        
-        Tabla_Administradores.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int fila_point = Tabla_Administradores.rowAtPoint(e.getPoint());
-                int columna_point = 1;
-                
-                if (fila_point > -1) {
-                    id_admin = (int) model.getValueAt(fila_point, columna_point);
-                    GestionarAdministrador admin = new GestionarAdministrador();
-                    admin.setVisible(true);
-                }
-            }
-            
-        });
-        
-        this.dispose();
     }
 
-   @Override
+    @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/LogoP.png"));
         return retValue;
@@ -100,7 +77,7 @@ public class InformeAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabla_Administradores = new javax.swing.JTable();
+        Tabla_Productos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         regresar_btn = new javax.swing.JButton();
@@ -109,7 +86,7 @@ public class InformeAdministrador extends javax.swing.JFrame {
         setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Tabla_Administradores.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -120,12 +97,12 @@ public class InformeAdministrador extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tabla_Administradores);
+        jScrollPane1.setViewportView(Tabla_Productos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 510, 130));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 560, 130));
 
         jLabel1.setFont(new java.awt.Font("Leelawadee", 0, 14)); // NOI18N
-        jLabel1.setText("Lista de los administradores:");
+        jLabel1.setText("Lista de los productos:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Vector.png"))); // NOI18N
@@ -147,12 +124,12 @@ public class InformeAdministrador extends javax.swing.JFrame {
     private void regresar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresar_btnActionPerformed
         dispose();
         Administrador retorno = new Administrador();
-        retorno.setVisible(true);
+        retorno.setVisible(true);    
     }//GEN-LAST:event_regresar_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabla_Administradores;
+    private javax.swing.JTable Tabla_Productos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
